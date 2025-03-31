@@ -51,6 +51,8 @@ class PerformanceGenerator:
         self.student_courses: List[Dict[str, Any]] = []
         
         # Load settings
+        print("Lprint self initializing PerformanceGenerator")
+        # print(self.assignments)
         self.late_submission_probability = ASSIGNMENT_SETTINGS.get('late_submission_probability', 0.15)
         self.max_days_late = ASSIGNMENT_SETTINGS.get('max_days_late', 5)
         self.time_per_assignment_minutes = TIME_TRACKING.get('time_per_assignment_minutes', {})
@@ -159,8 +161,15 @@ class PerformanceGenerator:
             Dict[str, Any]: Generated student-assignment data
         """
         # Determine if this will be a late submission
-        is_late = random.random() < self.late_submission_probability
-        
+        assignment_type = assignment.assignment_type or "Assignment"
+        if assignment_type.lower() in ["exam", "quiz"]:
+            is_late = False  # Exams and quizzes cannot be late
+        else:
+            is_late = random.random() < self.late_submission_probability
+
+        # Get assignment type info for score distribution
+        type_info = self._get_assignment_type_info(assignment_type)
+
         # Generate submission date
         submission_date = generate_submission_date(
             assignment.assign_date,
@@ -169,9 +178,6 @@ class PerformanceGenerator:
             self.max_days_late
         )
         
-        # Get assignment type info for score distribution
-        assignment_type = assignment.assignment_type or "Assignment"
-        type_info = self._get_assignment_type_info(assignment_type)
         
         # Determine student's score based on their performance profile
         # and the assignment characteristics

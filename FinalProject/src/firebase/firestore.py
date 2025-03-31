@@ -19,9 +19,9 @@ firebaseConfig = {
 }
 
 # Initialize Firebase
-cred = credentials.Certificate(firebaseConfig)
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+# cred = credentials.Certificate(firebaseConfig)
+# firebase_admin.initialize_app(cred)
+# db = firestore.client()
 
 @app.get("/")
 def read_root():

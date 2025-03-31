@@ -208,6 +208,39 @@ def calculate_weighted_score(
     return round(weighted_sum, 1)
 
 
+# def generate_realistic_time_spent(
+#     base_time: float,
+#     student_efficiency: float,
+#     variability: float = 0.3,
+#     min_multiplier: float = 0.5,
+#     max_multiplier: float = 2.0
+# ) -> float:
+#     """
+#     Generate a realistic time spent value for a student on an assignment.
+    
+#     Args:
+#         base_time (float): Base time for the assignment (in minutes)
+#         student_efficiency (float): Student's efficiency factor (0-1), higher means more efficient
+#         variability (float): Random variability factor (0-1)
+#         min_multiplier (float): Minimum time multiplier
+#         max_multiplier (float): Maximum time multiplier
+        
+#     Returns:
+#         float: Realistic time spent in minutes
+#     """
+#     # Calculate efficiency multiplier (more efficient students take less time)
+#     efficiency_multiplier = 2.0 - student_efficiency
+    
+#     # Add random variability
+#     random_factor = 1.0 + (random.random() * 2 - 1) * variability
+    
+#     # Calculate adjusted time
+#     adjusted_time = base_time * efficiency_multiplier * random_factor
+    
+#     # Ensure time is within reasonable bounds
+#     adjusted_time = max(base_time * min_multiplier, min(base_time * max_multiplier, adjusted_time))
+    
+#     return round(adjusted_time, 0)
 def generate_realistic_time_spent(
     base_time: float,
     student_efficiency: float,
@@ -216,11 +249,12 @@ def generate_realistic_time_spent(
     max_multiplier: float = 2.0
 ) -> float:
     """
-    Generate a realistic time spent value for a student on an assignment.
+    Generate a realistic time spent value for a student on an assignment,
+    with positive correlation to performance.
     
     Args:
         base_time (float): Base time for the assignment (in minutes)
-        student_efficiency (float): Student's efficiency factor (0-1), higher means more efficient
+        student_efficiency (float): Student's efficiency factor (0-1), higher means better performance
         variability (float): Random variability factor (0-1)
         min_multiplier (float): Minimum time multiplier
         max_multiplier (float): Maximum time multiplier
@@ -228,8 +262,28 @@ def generate_realistic_time_spent(
     Returns:
         float: Realistic time spent in minutes
     """
-    # Calculate efficiency multiplier (more efficient students take less time)
-    efficiency_multiplier = 2.0 - student_efficiency
+    # Determine time investment based on student's performance level
+    if student_efficiency > 0.8:  # High performers
+        # High performers spend moderate time (focused and efficient)
+        efficiency_multiplier = random.uniform(0.9, 1.3)
+    elif student_efficiency > 0.6:  # Above average performers
+        # Above average students spend slightly more time (diligent)
+        efficiency_multiplier = random.uniform(1.0, 1.4)
+    elif student_efficiency > 0.4:  # Average performers
+        # Average students spend more time (working harder to compensate)
+        efficiency_multiplier = random.uniform(1.1, 1.6)
+    else:  # Struggling students
+        # Create two patterns for struggling students:
+        if random.random() < 0.3:
+            # Some give up quickly (low time, low performance)
+            efficiency_multiplier = random.uniform(0.5, 0.9)
+        else:
+            # Others persist longer (high time, modest performance)
+            efficiency_multiplier = random.uniform(1.3, 2.0)
+    
+    # Add a positive correlation component - better students put in appropriate effort
+    effort_factor = student_efficiency * random.uniform(0.3, 0.5)
+    efficiency_multiplier += effort_factor
     
     # Add random variability
     random_factor = 1.0 + (random.random() * 2 - 1) * variability
@@ -240,8 +294,7 @@ def generate_realistic_time_spent(
     # Ensure time is within reasonable bounds
     adjusted_time = max(base_time * min_multiplier, min(base_time * max_multiplier, adjusted_time))
     
-    return round(adjusted_time, 0)
-
+    return round(adjusted_time)
 
 def analyze_grade_distribution(scores: List[float]) -> Dict[str, Any]:
     """

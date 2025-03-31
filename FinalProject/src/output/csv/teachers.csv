@@ -1,92 +1,64 @@
 courses,createdAt,department,email,id,name,phone,schoolId,title,type,updatedAt
-"[""CRS400533"", ""CRS970510""]",2025-03-20T18:55:28.806898,Science,ashley.massey@revoducate.edu,858256706,Ashley Massey,653.746.6549,SCH668649,Ms.,teacher,2025-03-20T18:55:29.191174
-"[""CRS071691""]",2025-03-20T18:55:28.806898,Arts,janice.farmer@revoducate.edu,722801170,Janice Farmer,001-248-831-1220x494,SCH668649,Dr.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.806898,Computer Science,craig.hines@revoducate.edu,830353354,Craig Hines,5386441413,SCH668649,Mrs.,teacher,2025-03-20T18:55:28.806898
-"[""CRS877046""]",2025-03-20T18:55:28.806898,Physical Education,abigail.smith@revoducate.edu,503461650,Abigail Smith,408.277.7906x085,SCH668649,Mrs.,teacher,2025-03-20T18:55:29.191174
-"[""CRS774420""]",2025-03-20T18:55:28.806898,Humanities,tim.martin@revoducate.edu,134815415,Tim Martin,(474)720-0184x8944,SCH668649,Dr.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.806898,Physical Education,kathryn.murphy@revoducate.edu,630817178,Kathryn Murphy,+1-982-306-3338,SCH668649,Ms.,teacher,2025-03-20T18:55:28.806898
-"[""CRS990525"", ""CRS412374""]",2025-03-20T18:55:28.807468,Science,kayla.douglas@revoducate.edu,137412861,Kayla Douglas,(243)705-8087x825,SCH668649,Ms.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.807468,Arts,chad.collins@revoducate.edu,225635456,Chad Collins,+1-651-429-6915,SCH668649,Dr.,teacher,2025-03-20T18:55:28.807468
-"[""CRS400533""]",2025-03-20T18:55:28.807468,Social Studies,ashley.harris@revoducate.edu,729435213,Ashley Harris,2438340908,SCH668649,Mrs.,teacher,2025-03-20T18:55:29.191174
-"[""CRS304501""]",2025-03-20T18:55:28.807468,Science,danielle.bowers@revoducate.edu,736195720,Danielle Bowers,(233)771-2307x852,SCH668649,Mr.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.807468,Mathematics,jean.wong@revoducate.edu,467151840,Jean Wong,(872)465-8782x742,SCH668649,Mr.,teacher,2025-03-20T18:55:28.807468
-[],2025-03-20T18:55:28.807468,Science,sarah.lewis@revoducate.edu,299633969,Sarah Lewis,760-744-6865,SCH668649,Prof.,teacher,2025-03-20T18:55:28.807468
-[],2025-03-20T18:55:28.807468,Special Education,kathy.wright@revoducate.edu,930346071,Kathy Wright,001-670-391-4974x2976,SCH668649,Ms.,teacher,2025-03-20T18:55:28.807468
-[],2025-03-20T18:55:28.807468,Physical Education,thomas.mendoza@אורטבהאמס.edu,697456515,Thomas Mendoza,+1-746-550-7553x31431,SCH808579,Mr.,teacher,2025-03-20T18:55:28.807468
-[],2025-03-20T18:55:28.807468,Languages,mary.thompson@אורטבהאמס.edu,715907852,Mary Thompson,317-769-7891,SCH808579,Dr.,teacher,2025-03-20T18:55:28.807468
-"[""CRS540603""]",2025-03-20T18:55:28.807468,Computer Science,kara.clarke@אורטבהאמס.edu,477272602,Kara Clarke,774.898.6270x84595,SCH808579,Prof.,teacher,2025-03-20T18:55:29.191174
-"[""CRS006701""]",2025-03-20T18:55:28.807468,Science,omar.nixon@אורטבהאמס.edu,265302650,Omar Nixon,411.856.6368x7658,SCH808579,Prof.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.808448,Humanities,steven.walker@אורטבהאמס.edu,465582584,Steven Walker,+1-543-398-6602x146,SCH808579,Ms.,teacher,2025-03-20T18:55:28.808448
-"[""CRS766421""]",2025-03-20T18:55:28.808448,Languages,meghan.vargas@אורטבהאמס.edu,779134385,Meghan Vargas,566-407-2211,SCH808579,Mr.,teacher,2025-03-20T18:55:29.191174
-"[""CRS540603""]",2025-03-20T18:55:28.808448,Humanities,lauren.barnes@אורטבהאמס.edu,149394266,Lauren Barnes,001-672-912-2067x05109,SCH808579,Prof.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.808448,Arts,denise.nielsen@אורטבהאמס.edu,284980892,Denise Nielsen,+1-209-355-4168x6298,SCH808579,Prof.,teacher,2025-03-20T18:55:28.808448
-"[""CRS912609""]",2025-03-20T18:55:28.808448,Mathematics,amy.kelly@אורטבהאמס.edu,992757101,Amy Kelly,(922)967-8395x07581,SCH808579,Mrs.,teacher,2025-03-20T18:55:29.191174
-"[""CRS759399""]",2025-03-20T18:55:28.808448,Humanities,erica.hunt@אורטבהאמס.edu,315382956,Erica Hunt,931-229-6991,SCH808579,Dr.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.808448,Humanities,gabriela.olson@אורטבהאמס.edu,167965911,Gabriela Olson,+1-965-821-9976x087,SCH808579,Prof.,teacher,2025-03-20T18:55:28.808448
-[],2025-03-20T18:55:28.808448,Computer Science,robin.stein@אורטבהאמס.edu,181123409,Robin Stein,735.425.1474x423,SCH808579,Ms.,teacher,2025-03-20T18:55:28.808448
-[],2025-03-20T18:55:28.808448,Languages,james.beck@אורטבהאמס.edu,151874893,James Beck,001-674-665-1423x264,SCH808579,Mr.,teacher,2025-03-20T18:55:28.808448
-[],2025-03-20T18:55:28.808448,Social Studies,david.brooks@אורטבהאמס.edu,549671531,David Brooks,001-863-516-8241x03272,SCH808579,Mr.,teacher,2025-03-20T18:55:28.808448
-[],2025-03-20T18:55:28.808448,Science,michael.sullivan@אורטבהאמס.edu,225419126,Michael Sullivan,863-340-6063x2432,SCH808579,Ms.,teacher,2025-03-20T18:55:28.808448
-[],2025-03-20T18:55:28.808448,Physical Education,eric.kim@אורטבהאמס.edu,794072797,Eric Kim,001-949-919-8442x11835,SCH808579,Prof.,teacher,2025-03-20T18:55:28.808448
-[],2025-03-20T18:55:28.808448,Physical Education,james.greene@אורטבהאמס.edu,759674140,James Greene,3395277405,SCH808579,Mr.,teacher,2025-03-20T18:55:28.808448
-"[""CRS766421""]",2025-03-20T18:55:28.809403,Languages,benjamin.hardy@אורטבהאמס.edu,718715157,Benjamin Hardy,001-570-473-9675x674,SCH808579,Mrs.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.809403,Physical Education,kyle.woodward@ביתספרקציר-משגב.edu,132451396,Kyle Woodward,001-683-439-0084x945,SCH791346,Mr.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.809403,Science,anthony.tyler@ביתספרקציר-משגב.edu,631220902,Anthony Tyler,(335)901-5671,SCH791346,Dr.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.809403,Science,casey.craig@ביתספרקציר-משגב.edu,369288188,Casey Craig,+1-317-245-4879x21760,SCH791346,Mrs.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.809403,Humanities,robert.walker@ביתספרקציר-משגב.edu,862171410,Robert Walker,598-343-5357x5086,SCH791346,Ms.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.809403,Humanities,lauren.flores@ביתספרקציר-משגב.edu,797979914,Lauren Flores,+1-474-351-9589,SCH791346,Prof.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.809403,Computer Science,michelle.wright@ביתספרקציר-משגב.edu,677546229,Michelle Wright,594.588.4887,SCH791346,Mr.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.809403,Science,stephen.williams@ביתספרקציר-משגב.edu,548005464,Stephen Williams,001-528-594-7305x690,SCH791346,Ms.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.809403,Languages,andrew.jones@ביתספרקציר-משגב.edu,878830230,Andrew Jones,941-539-4893x481,SCH791346,Ms.,teacher,2025-03-20T18:55:28.809403
-"[""CRS076701"", ""CRS158832""]",2025-03-20T18:55:28.809403,Science,jody.johnson@ביתספרקציר-משגב.edu,667450962,Jody Johnson,(657)249-7493x468,SCH791346,Dr.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.809403,Physical Education,andrea.craig@ביתספרקציר-משגב.edu,716155938,Andrea Craig,(708)912-5689x921,SCH791346,Prof.,teacher,2025-03-20T18:55:28.809403
-"[""CRS387471"", ""CRS156649""]",2025-03-20T18:55:28.809403,Social Studies,dylan.moore@ביתספרקציר-משגב.edu,920673629,Dylan Moore,722-591-4417x91285,SCH791346,Mrs.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.809403,Physical Education,stephen.williams@ביתספרקציר-משגב.edu,238563347,Stephen Williams,+1-483-979-1446x3819,SCH791346,Ms.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.809403,Social Studies,veronica.mejia@ביתספרקציר-משגב.edu,106747996,Veronica Mejia,922.589.7094x3599,SCH791346,Prof.,teacher,2025-03-20T18:55:28.809403
-[],2025-03-20T18:55:28.810380,Arts,katherine.alexander@ביתספרקציר-משגב.edu,475252223,Katherine Alexander,(890)765-1440x949,SCH791346,Dr.,teacher,2025-03-20T18:55:28.810380
-"[""CRS879345""]",2025-03-20T18:55:28.810380,Special Education,james.house@ביתספרקציר-משגב.edu,754835085,James House,738.623.9436,SCH791346,Dr.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.810380,Social Studies,eric.flores@ביתהחינוךכרמלזבולון.edu,131586610,Eric Flores,+1-306-795-7242,SCH874413,Mrs.,teacher,2025-03-20T18:55:28.810380
-"[""CRS580424""]",2025-03-20T18:55:28.810380,Humanities,kyle.nicholson@ביתהחינוךכרמלזבולון.edu,882431047,Kyle Nicholson,317.583.9828x9589,SCH874413,Prof.,teacher,2025-03-20T18:55:29.191174
-"[""CRS648091""]",2025-03-20T18:55:28.810380,Languages,sherri.taylor@ביתהחינוךכרמלזבולון.edu,133305133,Sherri Taylor,346-711-7928,SCH874413,Dr.,teacher,2025-03-20T18:55:29.191174
-"[""CRS083954""]",2025-03-20T18:55:28.810380,Mathematics,jenna.james@ביתהחינוךכרמלזבולון.edu,874364760,Jenna James,+1-589-485-6425,SCH874413,Prof.,teacher,2025-03-20T18:55:29.191174
-"[""CRS509735""]",2025-03-20T18:55:28.810380,Mathematics,aaron.meyer@ביתהחינוךכרמלזבולון.edu,966931381,Aaron Meyer,(684)506-6800x13877,SCH874413,Prof.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.810380,Arts,robin.briggs@ביתהחינוךכרמלזבולון.edu,811886746,Robin Briggs,+1-362-953-7573,SCH874413,Mr.,teacher,2025-03-20T18:55:28.810380
-"[""CRS648091""]",2025-03-20T18:55:28.810380,Computer Science,philip.jackson@ביתהחינוךכרמלזבולון.edu,887287901,Philip Jackson,677-678-5399,SCH874413,Mrs.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.810380,Computer Science,renee.alexander@ביתהחינוךכרמלזבולון.edu,343992147,Renee Alexander,3934520654,SCH874413,Mr.,teacher,2025-03-20T18:55:28.810380
-[],2025-03-20T18:55:28.810380,Arts,larry.stewart@ביתהחינוךכרמלזבולון.edu,286237155,Larry Stewart,2183386539,SCH874413,Mr.,teacher,2025-03-20T18:55:28.810380
-[],2025-03-20T18:55:28.810380,Humanities,nicholas.thompson@ביתהחינוךכרמלזבולון.edu,330590179,Nicholas Thompson,+1-722-390-0301x1582,SCH874413,Ms.,teacher,2025-03-20T18:55:28.810380
-[],2025-03-20T18:55:28.810380,Social Studies,joshua.brandt@ביתהחינוךכרמלזבולון.edu,368741463,Joshua Brandt,635.395.4335x840,SCH874413,Mr.,teacher,2025-03-20T18:55:28.810380
-"[""CRS506159""]",2025-03-20T18:55:28.810380,Special Education,mary.taylor@ביתהחינוךכרמלזבולון.edu,417656486,Mary Taylor,8512410743,SCH874413,Ms.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.810380,Computer Science,madison.taylor@ביתהחינוךכרמלזבולון.edu,948458154,Madison Taylor,9815246427,SCH874413,Dr.,teacher,2025-03-20T18:55:28.810380
-[],2025-03-20T18:55:28.811370,Science,james.davis@ביתהחינוךכרמלזבולון.edu,227545236,James Davis,001-205-394-2440,SCH874413,Mrs.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.811370,Science,daniel.valdez@ביתהחינוךכרמלזבולון.edu,480311295,Daniel Valdez,+1-240-587-7634x9017,SCH874413,Prof.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.811370,Mathematics,richard.andrade@ביתהחינוךכרמלזבולון.edu,288206289,Richard Andrade,+1-727-619-1233x79291,SCH874413,Dr.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.811370,Physical Education,gregory.long@ביתהחינוךכרמלזבולון.edu,954668425,Gregory Long,+1-380-861-0875x5633,SCH874413,Mr.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.811370,Science,kathleen.johnson@ביתהספרקצינייםעכו.edu,742184558,Kathleen Johnson,+1-876-649-3760x183,SCH815837,Mr.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.811370,Computer Science,shawn.woods@ביתהספרקצינייםעכו.edu,166623534,Shawn Woods,001-683-410-6245,SCH815837,Dr.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.811370,Humanities,brittany.dickerson@ביתהספרקצינייםעכו.edu,110115156,Brittany Dickerson,(758)995-7448,SCH815837,Dr.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.811370,Humanities,david.mason@ביתהספרקצינייםעכו.edu,804413585,David Mason,4085055638,SCH815837,Dr.,teacher,2025-03-20T18:55:28.811370
-"[""CRS512766""]",2025-03-20T18:55:28.811370,Computer Science,david.benson@ביתהספרקצינייםעכו.edu,138010870,David Benson,+1-670-201-2514x0410,SCH815837,Dr.,teacher,2025-03-20T18:55:29.193174
-[],2025-03-20T18:55:28.811370,Special Education,tammy.gonzalez@ביתהספרקצינייםעכו.edu,672934944,Tammy Gonzalez,468.533.5419x1294,SCH815837,Mrs.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.811370,Physical Education,john.santos@ביתהספרקצינייםעכו.edu,863497311,John Santos,857.750.2601,SCH815837,Mrs.,teacher,2025-03-20T18:55:28.811370
-"[""CRS023301""]",2025-03-20T18:55:28.811370,Mathematics,tina.parker@ביתהספרקצינייםעכו.edu,245715652,Tina Parker,001-450-414-6424x925,SCH815837,Mrs.,teacher,2025-03-20T18:55:29.191174
-[],2025-03-20T18:55:28.811370,Science,katie.acosta@ביתהספרקצינייםעכו.edu,603683255,Katie Acosta,001-502-969-5406x428,SCH815837,Mrs.,teacher,2025-03-20T18:55:28.811370
-"[""CRS169990""]",2025-03-20T18:55:28.811370,Mathematics,nancy.solis@ביתהספרקצינייםעכו.edu,606980384,Nancy Solis,+1-648-779-5152,SCH815837,Mrs.,teacher,2025-03-20T18:55:29.193174
-[],2025-03-20T18:55:28.811370,Mathematics,vanessa.delacruz@ביתהספרקצינייםעכו.edu,292436381,Vanessa Delacruz,001-964-290-7394,SCH815837,Mrs.,teacher,2025-03-20T18:55:28.811370
-[],2025-03-20T18:55:28.812391,Special Education,elizabeth.palmer@ביתהספרקצינייםעכו.edu,928882307,Elizabeth Palmer,302.956.1414x394,SCH815837,Mr.,teacher,2025-03-20T18:55:28.812391
-[],2025-03-20T18:55:28.812461,Humanities,tina.mendez@ביתהספרקצינייםעכו.edu,257083101,Tina Mendez,+1-769-214-3702,SCH815837,Prof.,teacher,2025-03-20T18:55:28.812461
-[],2025-03-20T18:55:28.812461,Social Studies,julie.flynn@ביתהספרקצינייםעכו.edu,589887595,Julie Flynn,(511)880-1670x845,SCH815837,Mrs.,teacher,2025-03-20T18:55:28.812461
-[],2025-03-20T18:55:28.812461,Mathematics,loretta.aguilar@ביתהספרקצינייםעכו.edu,311948891,Loretta Aguilar,+1-589-734-2389x881,SCH815837,Mrs.,teacher,2025-03-20T18:55:28.812461
-"[""CRS732088""]",2025-03-20T18:55:28.812461,Physical Education,adam.garcia@ביתהספרקצינייםעכו.edu,468837249,Adam Garcia,(452)391-9505x416,SCH815837,Prof.,teacher,2025-03-20T18:55:29.191174
-"[""CRS632665""]",2025-03-20T18:55:28.812461,Humanities,brandon.smith@ביתהספרקצינייםעכו.edu,683294854,Brandon Smith,(336)423-1005x206,SCH815837,Ms.,teacher,2025-03-20T18:55:29.193174
-[],2025-03-20T18:55:28.812461,Science,tammy.stanton@ביתהספרקצינייםעכו.edu,316137889,Tammy Stanton,(793)202-2425,SCH815837,Prof.,teacher,2025-03-20T18:55:28.812461
-[],2025-03-20T18:55:28.812461,Computer Science,caroline.schneider@ביתהספרקצינייםעכו.edu,714899308,Caroline Schneider,616-834-6142x5773,SCH815837,Prof.,teacher,2025-03-20T18:55:28.812461
-"[""CRS169990""]",2025-03-20T18:55:28.812461,Special Education,nicholas.holmes@ביתהספרקצינייםעכו.edu,717834872,Nicholas Holmes,613.951.2993x12409,SCH815837,Mr.,teacher,2025-03-20T18:55:29.193174
-[],2025-03-20T18:55:28.812461,Physical Education,michael.hall@אורטחקלאיפרדסחנה.edu,505355108,Michael Hall,870-799-0286x72597,SCH050657,Ms.,teacher,2025-03-20T18:55:28.812461
-"[""CRS829271""]",2025-03-20T18:55:28.812461,Science,nathan.burns@אורטחקלאיפרדסחנה.edu,680590290,Nathan Burns,303.966.2454x28162,SCH050657,Mrs.,teacher,2025-03-20T18:55:29.193174
-[],2025-03-20T18:55:28.812461,Humanities,james.miller@אורטחקלאיפרדסחנה.edu,856438899,James Miller,732-792-7810x4590,SCH050657,Mrs.,teacher,2025-03-20T18:55:28.812461
-"[""CRS674486"", ""CRS792818""]",2025-03-20T18:55:28.812461,Arts,travis.taylor@אורטחקלאיפרדסחנה.edu,241407543,Travis Taylor,001-424-358-5880x7023,SCH050657,Mr.,teacher,2025-03-20T18:55:29.193174
-"[""CRS655493"", ""CRS427163"", ""CRS545989""]",2025-03-20T18:55:28.812461,Mathematics,jeremiah.james@אורטחקלאיפרדסחנה.edu,109798304,Jeremiah James,9814199476,SCH050657,Mr.,teacher,2025-03-20T18:55:29.193174
-[],2025-03-20T18:55:28.812461,Special Education,taylor.morgan@אורטחקלאיפרדסחנה.edu,484347724,Taylor Morgan,274.568.8896x96600,SCH050657,Prof.,teacher,2025-03-20T18:55:28.812461
-[],2025-03-20T18:55:28.812461,Special Education,brenda.johnson@אורטחקלאיפרדסחנה.edu,882321151,Brenda Johnson,311.712.6460x15824,SCH050657,Mrs.,teacher,2025-03-20T18:55:28.812461
-"[""CRS980690"", ""CRS412820"", ""CRS545989""]",2025-03-20T18:55:28.813482,Physical Education,deanna.west@אורטחקלאיפרדסחנה.edu,830407758,Deanna West,001-481-688-7333x48804,SCH050657,Mrs.,teacher,2025-03-20T18:55:29.193174
+[],2025-03-31T18:05:19.752149,Humanities,john.robertson@revoducate.edu,574035736,John Robertson,447-675-8536x091,SCH594112,Ms.,teacher,2025-03-31T18:05:19.752149
+"[""CRS282114""]",2025-03-31T18:05:19.752149,Arts,alicia.smith@revoducate.edu,697818998,Alicia Smith,(237)671-9518x9969,SCH594112,Prof.,teacher,2025-03-31T18:05:19.757280
+"[""CRS279712""]",2025-03-31T18:05:19.752149,Mathematics,brenda.hanson@revoducate.edu,100579822,Brenda Hanson,+1-468-407-1490x90605,SCH594112,Mr.,teacher,2025-03-31T18:05:19.757280
+[],2025-03-31T18:05:19.752149,Science,craig.lopez@revoducate.edu,296551712,Craig Lopez,945.663.5439,SCH594112,Ms.,teacher,2025-03-31T18:05:19.752149
+[],2025-03-31T18:05:19.752149,Humanities,angela.chen@revoducate.edu,691698241,Angela Chen,465-975-1132x954,SCH594112,Dr.,teacher,2025-03-31T18:05:19.752149
+"[""CRS445791""]",2025-03-31T18:05:19.752149,Mathematics,justin.thompson@revoducate.edu,155521610,Justin Thompson,(799)584-2137x07490,SCH594112,Mrs.,teacher,2025-03-31T18:05:19.757280
+[],2025-03-31T18:05:19.752149,Science,stacey.reynolds@revoducate.edu,483985296,Stacey Reynolds,001-381-543-4152x841,SCH594112,Mrs.,teacher,2025-03-31T18:05:19.752149
+"[""CRS010114""]",2025-03-31T18:05:19.752149,Mathematics,william.odonnell@revoducate.edu,704607153,William Odonnell,593.278.3666x0083,SCH594112,Dr.,teacher,2025-03-31T18:05:19.757280
+[],2025-03-31T18:05:19.752149,Social Studies,joseph.wang@revoducate.edu,138798572,Joseph Wang,882-797-6195x74000,SCH594112,Ms.,teacher,2025-03-31T18:05:19.752149
+[],2025-03-31T18:05:19.752149,Languages,krista.jones@revoducate.edu,665727379,Krista Jones,462-737-6613x61323,SCH594112,Mrs.,teacher,2025-03-31T18:05:19.752149
+[],2025-03-31T18:05:19.752149,Physical Education,abigail.pena@revoducate.edu,356224150,Abigail Pena,6173004057,SCH594112,Mrs.,teacher,2025-03-31T18:05:19.752149
+"[""CRS829699""]",2025-03-31T18:05:19.752149,Mathematics,tracy.jones@revoducate.edu,998654841,Tracy Jones,(475)728-7644x0260,SCH594112,Dr.,teacher,2025-03-31T18:05:19.757280
+[],2025-03-31T18:05:19.752149,Arts,bryan.harrison@revoducate.edu,722963064,Bryan Harrison,001-408-780-2728x35983,SCH594112,Dr.,teacher,2025-03-31T18:05:19.752149
+"[""CRS563301""]",2025-03-31T18:05:19.752149,Physical Education,paul.hernandez@revoducate.edu,164653801,Paul Hernandez,(258)284-4278x373,SCH594112,Mr.,teacher,2025-03-31T18:05:19.757280
+[],2025-03-31T18:05:19.752149,Computer Science,lisa.garza@revoducate.edu,417550898,Lisa Garza,917-324-4303,SCH594112,Dr.,teacher,2025-03-31T18:05:19.752149
+[],2025-03-31T18:05:19.752149,Arts,meredith.nelson@revoducate.edu,295073259,Meredith Nelson,+1-582-568-8811x2613,SCH594112,Mrs.,teacher,2025-03-31T18:05:19.752149
+"[""CRS636333""]",2025-03-31T18:05:19.752149,Languages,victoria.frederick@revoducate.edu,979459758,Victoria Frederick,537.976.5835,SCH594112,Prof.,teacher,2025-03-31T18:05:19.757280
+"[""CRS435216""]",2025-03-31T18:05:19.752149,Special Education,rachel.lewis@אורטבהאמס.edu,345074912,Rachel Lewis,592.227.1320x2919,SCH215402,Ms.,teacher,2025-03-31T18:05:19.758284
+"[""CRS182491""]",2025-03-31T18:05:19.752149,Computer Science,nicole.scott@אורטבהאמס.edu,714421815,Nicole Scott,3486149348,SCH215402,Ms.,teacher,2025-03-31T18:05:19.758284
+"[""CRS878123""]",2025-03-31T18:05:19.752149,Languages,samuel.rojas@אורטבהאמס.edu,135907292,Samuel Rojas,683.238.0990x105,SCH215402,Mr.,teacher,2025-03-31T18:05:19.757280
+"[""CRS843136""]",2025-03-31T18:05:19.752149,Special Education,michaela.lynch@אורטבהאמס.edu,131559058,Michaela Lynch,(919)561-8101,SCH215402,Dr.,teacher,2025-03-31T18:05:19.758284
+"[""CRS237240""]",2025-03-31T18:05:19.752149,Languages,christopher.foster@אורטבהאמס.edu,628688353,Christopher Foster,001-719-847-6982x394,SCH215402,Prof.,teacher,2025-03-31T18:05:19.757280
+"[""CRS159759""]",2025-03-31T18:05:19.752149,Computer Science,jessica.harris@אורטבהאמס.edu,569578837,Jessica Harris,739-629-9481,SCH215402,Prof.,teacher,2025-03-31T18:05:19.758284
+"[""CRS171035"", ""CRS393309""]",2025-03-31T18:05:19.754152,Arts,rose.flores@אורטבהאמס.edu,949305037,Rose Flores,(822)233-7140x1742,SCH215402,Prof.,teacher,2025-03-31T18:05:19.758284
+[],2025-03-31T18:05:19.754152,Social Studies,stacy.sexton@אורטבהאמס.edu,401590470,Stacy Sexton,(897)674-1141,SCH215402,Dr.,teacher,2025-03-31T18:05:19.754152
+[],2025-03-31T18:05:19.754152,Science,james.price@אורטבהאמס.edu,191906463,James Price,(799)529-6513x9836,SCH215402,Prof.,teacher,2025-03-31T18:05:19.754152
+"[""CRS384403""]",2025-03-31T18:05:19.754152,Computer Science,mary.salazar@אורטבהאמס.edu,887757105,Mary Salazar,504.423.7499x820,SCH215402,Prof.,teacher,2025-03-31T18:05:19.757280
+[],2025-03-31T18:05:19.754152,Social Studies,heather.fuller@אורטבהאמס.edu,384903050,Heather Fuller,7635774983,SCH215402,Mrs.,teacher,2025-03-31T18:05:19.754152
+"[""CRS596208""]",2025-03-31T18:05:19.754152,Languages,kevin.watts@ביתספרקציר-משגב.edu,417237564,Kevin Watts,+1-662-500-3410x29742,SCH278430,Mrs.,teacher,2025-03-31T18:05:19.759102
+"[""CRS923542""]",2025-03-31T18:05:19.754152,Science,todd.nguyen@ביתספרקציר-משגב.edu,216964727,Todd Nguyen,001-679-720-3311x9228,SCH278430,Mrs.,teacher,2025-03-31T18:05:19.759102
+[],2025-03-31T18:05:19.754152,Physical Education,vincent.powell@ביתספרקציר-משגב.edu,734529751,Vincent Powell,+1-793-950-4601x025,SCH278430,Mr.,teacher,2025-03-31T18:05:19.754152
+"[""CRS408913""]",2025-03-31T18:05:19.754773,Physical Education,kenneth.moore@ביתספרקציר-משגב.edu,244789436,Kenneth Moore,2747623319,SCH278430,Ms.,teacher,2025-03-31T18:05:19.758868
+"[""CRS408913""]",2025-03-31T18:05:19.754773,Physical Education,diane.rogers@ביתספרקציר-משגב.edu,526409063,Diane Rogers,(378)409-3626,SCH278430,Ms.,teacher,2025-03-31T18:05:19.758868
+"[""CRS687693""]",2025-03-31T18:05:19.754773,Humanities,eugene.love@ביתספרקציר-משגב.edu,535737442,Eugene Love,+1-494-627-4909x38030,SCH278430,Mrs.,teacher,2025-03-31T18:05:19.758868
+"[""CRS923542""]",2025-03-31T18:05:19.754773,Humanities,vanessa.nunez@ביתספרקציר-משגב.edu,926028153,Vanessa Nunez,(865)991-2622,SCH278430,Mr.,teacher,2025-03-31T18:05:19.759102
+[],2025-03-31T18:05:19.754773,Computer Science,erin.clarke@ביתספרקציר-משגב.edu,745955667,Erin Clarke,781-596-5052x67160,SCH278430,Dr.,teacher,2025-03-31T18:05:19.754773
+[],2025-03-31T18:05:19.754773,Special Education,william.daniels@ביתספרקציר-משגב.edu,160621877,William Daniels,(376)455-8149x370,SCH278430,Ms.,teacher,2025-03-31T18:05:19.754773
+[],2025-03-31T18:05:19.754773,Physical Education,joe.johnson@ביתספרקציר-משגב.edu,249060477,Joe Johnson,574-977-2179,SCH278430,Prof.,teacher,2025-03-31T18:05:19.754773
+"[""CRS242944"", ""CRS273627""]",2025-03-31T18:05:19.754773,Humanities,michelle.little@ביתספרקציר-משגב.edu,583391339,Michelle Little,977-880-0885,SCH278430,Prof.,teacher,2025-03-31T18:05:19.758868
+[],2025-03-31T18:05:19.754773,Humanities,april.rasmussen@ביתספרקציר-משגב.edu,186442043,April Rasmussen,994.761.8712,SCH278430,Prof.,teacher,2025-03-31T18:05:19.754773
+"[""CRS097087"", ""CRS700175""]",2025-03-31T18:05:19.754773,Physical Education,stacy.wilson@ביתהחינוךכרמלזבולון.edu,374930033,Stacy Wilson,4303054132,SCH436822,Ms.,teacher,2025-03-31T18:05:19.759102
+"[""CRS374203"", ""CRS960105""]",2025-03-31T18:05:19.754773,Science,kenneth.parks@ביתהחינוךכרמלזבולון.edu,403714026,Kenneth Parks,745-477-2772,SCH436822,Dr.,teacher,2025-03-31T18:05:19.759102
+[],2025-03-31T18:05:19.754773,Computer Science,danielle.forbes@ביתהחינוךכרמלזבולון.edu,100230434,Danielle Forbes,(515)890-0064,SCH436822,Ms.,teacher,2025-03-31T18:05:19.754773
+"[""CRS158012"", ""CRS260684""]",2025-03-31T18:05:19.754773,Physical Education,jasmin.gregory@ביתהחינוךכרמלזבולון.edu,575037503,Jasmin Gregory,999.361.1938x6542,SCH436822,Prof.,teacher,2025-03-31T18:05:19.759102
+"[""CRS120015""]",2025-03-31T18:05:19.754773,Mathematics,cody.jackson@ביתהחינוךכרמלזבולון.edu,491601410,Cody Jackson,761.344.8138,SCH436822,Mr.,teacher,2025-03-31T18:05:19.759102
+"[""CRS741286"", ""CRS622177""]",2025-03-31T18:05:19.755777,Mathematics,danielle.lawson@ביתהספרקצינייםעכו.edu,964416270,Danielle Lawson,(253)868-0694x81859,SCH844154,Mr.,teacher,2025-03-31T18:05:19.759102
+"[""CRS196654"", ""CRS210243""]",2025-03-31T18:05:19.755777,Physical Education,joshua.williams@ביתהספרקצינייםעכו.edu,266304593,Joshua Williams,530-959-0225x12646,SCH844154,Ms.,teacher,2025-03-31T18:05:19.759102
+[],2025-03-31T18:05:19.755777,Social Studies,justin.castillo@ביתהספרקצינייםעכו.edu,596927265,Justin Castillo,(967)406-1959x09558,SCH844154,Dr.,teacher,2025-03-31T18:05:19.755777
+"[""CRS676619"", ""CRS622177""]",2025-03-31T18:05:19.755777,Computer Science,maureen.olsen@ביתהספרקצינייםעכו.edu,316206180,Maureen Olsen,(832)343-2269x7817,SCH844154,Ms.,teacher,2025-03-31T18:05:19.759102
+[],2025-03-31T18:05:19.755777,Science,melissa.hicks@ביתהספרקצינייםעכו.edu,895988969,Melissa Hicks,507.283.3819,SCH844154,Mrs.,teacher,2025-03-31T18:05:19.755777
+[],2025-03-31T18:05:19.755777,Special Education,megan.bates@ביתהספרקצינייםעכו.edu,491829399,Megan Bates,(979)945-5683,SCH844154,Dr.,teacher,2025-03-31T18:05:19.755777
+"[""CRS210243""]",2025-03-31T18:05:19.755777,Physical Education,christopher.bolton@ביתהספרקצינייםעכו.edu,440665012,Christopher Bolton,+1-732-474-7602x918,SCH844154,Ms.,teacher,2025-03-31T18:05:19.759102
+[],2025-03-31T18:05:19.755777,Computer Science,matthew.cantu@ביתהספרקצינייםעכו.edu,474120950,Matthew Cantu,791-840-3973,SCH844154,Mr.,teacher,2025-03-31T18:05:19.755777
+[],2025-03-31T18:05:19.755777,Languages,chad.lee@ביתהספרקצינייםעכו.edu,256104133,Chad Lee,001-273-908-0579,SCH844154,Prof.,teacher,2025-03-31T18:05:19.755777
+"[""CRS891563""]",2025-03-31T18:05:19.755777,Mathematics,lindsey.jones@אורטחקלאיפרדסחנה.edu,835914088,Lindsey Jones,6222409741,SCH563138,Ms.,teacher,2025-03-31T18:05:19.759102
+"[""CRS347966"", ""CRS826044""]",2025-03-31T18:05:19.755777,Humanities,stephanie.williams@אורטחקלאיפרדסחנה.edu,866005309,Stephanie Williams,+1-770-518-0587x84516,SCH563138,Ms.,teacher,2025-03-31T18:05:19.759102
+[],2025-03-31T18:05:19.755777,Special Education,jason.oconnell@אורטחקלאיפרדסחנה.edu,142247672,Jason Oconnell,(770)321-9331,SCH563138,Prof.,teacher,2025-03-31T18:05:19.755777
+"[""CRS770000"", ""CRS936616""]",2025-03-31T18:05:19.755777,Special Education,sheena.thomas@אורטחקלאיפרדסחנה.edu,871206204,Sheena Thomas,685-920-7637x49189,SCH563138,Mr.,teacher,2025-03-31T18:05:19.759102
+[],2025-03-31T18:05:19.755777,Social Studies,christopher.sexton@אורטחקלאיפרדסחנה.edu,530870689,Christopher Sexton,(312)231-6229,SCH563138,Prof.,teacher,2025-03-31T18:05:19.755777
+[],2025-03-31T18:05:19.756776,Special Education,emily.smith@אורטחקלאיפרדסחנה.edu,645221710,Emily Smith,384-205-0812,SCH563138,Mrs.,teacher,2025-03-31T18:05:19.756776
+[],2025-03-31T18:05:19.756776,Physical Education,jamie.clark@אורטחקלאיפרדסחנה.edu,403522960,Jamie Clark,+1-496-998-3363x68167,SCH563138,Mr.,teacher,2025-03-31T18:05:19.756776
+"[""CRS826262""]",2025-03-31T18:05:19.756776,Science,andrew.barrett@אורטחקלאיפרדסחנה.edu,267560424,Andrew Barrett,001-633-324-2429,SCH563138,Dr.,teacher,2025-03-31T18:05:19.759102
+"[""CRS751708""]",2025-03-31T18:05:19.756776,Mathematics,caroline.shaw@אורטחקלאיפרדסחנה.edu,699786371,Caroline Shaw,350.600.4692,SCH563138,Prof.,teacher,2025-03-31T18:05:19.759102

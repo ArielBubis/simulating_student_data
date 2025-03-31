@@ -58,7 +58,7 @@ from generators.performance_generator import PerformanceGenerator
 from utils.validation_utils import validate_data_consistency, log_validation_errors
 
 # Import Firebase utilities
-# from firebase.firestore import Firestore
+from firebase.firestore import Firestore
 
 log_file = os.path.join(os.path.expanduser("~"), "logs", "src/data_generation.log")
 
@@ -178,8 +178,9 @@ class DataGenerator:
             # Generate data in the correct order
             self._generate_schools()
             self._generate_teachers()
-            self._generate_students()
+            # self._generate_students()
             self._generate_courses()
+            self._generate_students_for_courses()
             self._generate_modules()
             self._generate_assignments()
             self._generate_performance_data()
@@ -233,7 +234,46 @@ class DataGenerator:
         self.course_generator = CourseGenerator(self.schools, self.teachers)
         self.courses = self.course_generator.generate_courses()
         logger.info(f"Generated {len(self.courses)} courses")
-    
+    def _generate_students_for_courses(self) -> None:
+        """Generate students based on course enrollment needs."""
+        logger.info("Generating students based on course enrollment...")
+        
+        # Initialize student generator
+        self.student_generator = StudentGenerator(self.schools)
+        
+        # Keep track of all generated students
+        all_students = []
+        
+        # For each course, generate the appropriate number of students
+        for course in self.courses:
+            # Get the school for this course
+            school_id = course.school_id
+            
+            # Determine number of students (12-30 per course as specified in USER_SETTINGS)
+            num_students = random.randint(
+                12,
+                30
+            )
+            
+            # Generate students specifically for this course
+            course_students = self.student_generator.generate_students_for_course(
+                course.id, school_id, num_students
+            )
+            
+            # Add these students to our course
+            for student in course_students:
+                course.add_student(student.id)
+            
+            # Add these students to our overall list
+            all_students.extend(course_students)
+            
+            logger.debug(f"Generated {len(course_students)} students for course {course.id}")
+        
+        # Remove any duplicate students (in case the same student was generated for multiple courses)
+        self.students = list({student.id: student for student in all_students}.values())
+        
+        logger.info(f"Generated a total of {len(self.students)} unique students across all courses")
+
     def _generate_modules(self) -> None:
         """Generate modules within courses."""
         logger.info("Generating modules...")

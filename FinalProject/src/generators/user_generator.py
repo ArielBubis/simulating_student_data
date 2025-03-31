@@ -219,7 +219,7 @@ class StudentGenerator(UserGenerator):
         # Determine grade level (1-12) and entry year
         current_year = datetime.now().year
         grade_level = random.randint(9, 12)  # High school level
-        entry_year = current_year - (grade_level - 9)  # Assuming 9th grade is first year
+        entry_year = current_year - (grade_level - 7)  # Assuming 9th grade is first year
         
         # Create the student
         student = Student(
