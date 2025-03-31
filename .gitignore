@@ -15,4 +15,6 @@ venv.bak/
 # VS Code
 .vscode/
 
+FinalProject/src/output/
 src/output/
+
