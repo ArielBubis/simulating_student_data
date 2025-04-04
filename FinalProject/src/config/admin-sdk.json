@@ -1,14 +1,1 @@
-{
-    "type": "service_account",
-    "project_id": "revoducate-finalproject",
-    "private_key_id": "0ae1417e4b4a5a35a1a776c8f15adf6330cf9074",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC4kBPk3xuLgI0e\nTfLaGAhMB0+n9Pil41kKazNaLYIpSyyJVfQ9GL6SNkYjy4hCrH82lPcTODuJQ5kv\n8UlA99mbXknQZ3+GEdZss6iD++qqJyMwVLsVCzfqhbM94QnPc5rWg4CPrAkl6Lv2\n2qTTnF1w5HIW+F+QQGYJudRIDQIV3nt5eBcijhQ5QM1yiLLdkdWegWQwHf42tj2g\nA6PfKuxuGXIr4YUybL/Bf4OrS04Oif/yITu+qH3Evw2zep5Ycpl/SJOJt7CabCVQ\nGh/Fy++hq/A68/LIs/aq+4pz80r/m8bQ1Gv6W1MV1Oj8AeTD8AiJXTN1yzm4cZpb\nVm2Wzy/BAgMBAAECggEACmG8ZL7yFzZLed1roD4C1XgB0JJUnEw+GXpvQI7XyAfd\nAPqvSvKF4cagymmsCAgY/dKCVXfvzWhaiRpbAwcOHBHBODJiN4HwXFv8yjPU/u5F\nqfXSMjxX0F7l9sCeYyd/Gbr689n7B8FgNWIWLHsavHt1OXqOMZiVxM1JtiXZLK6n\nLudSYrQhFsG5F1hkD94eV9dBqiLTnLOM6MxKEsCfWQolS4PV6hVMtJcU1eWTZzIM\nWkfPiFNTRKsjEVdNtA43arWJ8W03fZGS6cmUpXe+RSldAS2VWJPbjZMfB4SHaiXB\n6fqB4W+nON5ffyurT6t2zDcEOQwx+etFkRMIyXTaYQKBgQDgb6ADk8qE64ZWShBv\niRJvL7KY9eo4tdrnevp99Dfy6L/Ydu/JOxfF7KYl+gvK617+ihNZcNuqN6525R74\nVy8oNk7ZlU7gY+bb6cx2CpF2+96DcMz1XT/Zz3ZodKHFPzbAE0n24sQWUmcR+de0\nDlBlvVKodLHHM5M/LNm4RzMAeQKBgQDShOVaxO2WQXwd2adZ/DBcH5oEYtOlUJU5\n/wlvUM7JxJPxk0FsqxqW4imCAylooE6OhpAaDow8//+yuTjAIAg1vkRd13DW9ruy\nO5i8Kj1w14x8EGwMgydwZs9KTJG6EHMwN0d0gX0DBTgiqcC+NbnaTc64+IdocSEy\nFRBsFZ2niQKBgQDBZG5lprwjvS+Mu1VeRqbz2A31cDHbnBh8zqN6VS7AyX5GcHY+\n2ASsMDcbElOHDzpT63aw42blTgWvvc7p/3ZLGEDpjJbjFDKh3Nyp+oFOHcqnSFPU\nOf4DGZnWeGnNJaNv7y8U5mJBOdBG1RrhtFPi1zian7NxCygej+8rs25nQQKBgHrd\nNyKvtl4wX+joA8T/65WImBIhP5bHHiDYGUCPb/DQOuwN3mw2vHD9E+6eO8elb9O8\n81NR1EUxv6EmetmemEwNfMcsGt5K6CbQo4aGPI+kLYim6Piwfw8Z4bdiUta+DQxB\n5wE3Jafinu2UFzqsDok7SgAohJbPF+mr44bBYt7JAoGBAMBdW0ITD5QkKzfaK6B+\noLjFs+W/QAfKdrcVGYGmbQa3KqoDwGUtthFxk8uM5D3RqaRw6CZhCk5vUw7z+L1S\nH/mSznnzqjVYU8d4kJwWotvR5GPv4/mGHPkzDfkPfItUnmqw0e6whAoX4EqqiQ9d\nr9cBrrNuJYIMvo2zvbrj/Jkn\n-----END PRIVATE KEY-----\n",
-    "client_email": "firebase-adminsdk-fbsvc@revoducate-finalproject.iam.gserviceaccount.com",
-    "client_id": "104863851964365184622",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40revoducate-finalproject.iam.gserviceaccount.com",
-    "universe_domain": "googleapis.com"
-  }
-  
+
