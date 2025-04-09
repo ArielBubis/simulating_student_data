@@ -182,8 +182,7 @@ class DataGenerator:
             
             # Generate records for all non-submitted assignments
             for student in self.students:
-                student_effective_date = self.pr_get_student_effective_date(student)
-                
+                student_effective_date = self.performance_generator._get_student_effective_date(student)                
                 for assignment in self.assignments:
                     # Check if this student-assignment pair exists in completed submissions
                     is_completed = any(

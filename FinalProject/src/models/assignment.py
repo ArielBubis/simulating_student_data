@@ -97,14 +97,15 @@ class Assignment:
             float: Average score across all submissions
         """
         if not self.student_submissions:
-            print("No student submissions found.")
+            # Replace print with logging or remove entirely
+            # print("No student submissions found.")
             return 0.0
         
         total_score = sum(
             submission.get("assessmentScore", 0) 
             for submission in self.student_submissions.values()
         )
-        return total_score / len(self.student_submissions)
+        return total_score / len(self.student_submissions)    
     
     def get_late_rate(self) -> float:
         """

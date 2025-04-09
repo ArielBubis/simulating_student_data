@@ -1372,11 +1372,11 @@ class PerformanceGenerator:
             total_assignments = sum(assignment_status_counts.values())
             
             # Calculate percentages
-        if total_assignments > 0:
-            # Use a temporary dictionary to store the percentages
-            percentages = {f"{status}Percent": round(count / total_assignments * 100, 1) for status, count in assignment_status_counts.items()}
-            # Update the original dictionary with the new keys
-            assignment_status_counts.update(percentages)
+            if total_assignments > 0:
+                # Use a temporary dictionary to store the percentages
+                percentages = {f"{status}Percent": round(count / total_assignments * 100, 1) for status, count in assignment_status_counts.items()}
+                # Update the original dictionary with the new keys
+                assignment_status_counts.update(percentages)
             
             # Calculate profile-specific completion rates
             for profile, stats in status_by_profile.items():
