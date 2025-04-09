@@ -281,18 +281,24 @@ def validate_assignment_counts(
 
 
 def validate_data_consistency(
-    data_objects: Dict[str, List[Dict[str, Any]]]
+    data_objects: Dict[str, List[Dict[str, Any]]],
+    context: Dict[str, Any] = None
 ) -> Dict[str, List[str]]:
     """
     Perform comprehensive validation on generated data.
     
     Args:
         data_objects (Dict[str, List[Dict[str, Any]]]): Dictionary of entity lists by type
+        context (Dict[str, Any]): Additional context like mid-semester flags
         
     Returns:
         Dict[str, List[str]]: Dictionary of validation errors by entity type
     """
     validation_errors = {}
+    
+    # Get context information
+    is_mid_semester = context.get('is_mid_semester', False) if context else False
+    cutoff_date = context.get('cutoff_date') if context else None
     
     # Extract entities by type
     schools = data_objects.get('schools', [])
@@ -301,14 +307,14 @@ def validate_data_consistency(
     courses = data_objects.get('courses', [])
     modules = data_objects.get('modules', [])
     assignments = data_objects.get('assignments', [])
-    
+
     # Validate school data
     school_errors = validate_required_fields(
         schools, ['id', 'name', 'type', 'location', 'foundingYear']
     )
     if school_errors:
         validation_errors['schools'] = school_errors
-    
+
     # Validate teacher data
     teacher_errors = validate_required_fields(
         teachers, ['id', 'name', 'email', 'schoolId']
@@ -389,9 +395,25 @@ def validate_data_consistency(
             'assignmentId'
         ))
         sa_errors.extend(validate_score_ranges(student_assignments, 'assessmentScore'))
+        
+        # Adjust submission rate expectations based on semester state
+        if is_mid_semester:
+            # For mid-semester, we expect fewer submissions
+            min_submission_rate = 0.3  # Lower expectation for mid-semester
+        else:
+            # For end-of-semester, we expect most assignments to be submitted
+            min_submission_rate = 0.7
+            
+        sa_errors.extend(validate_submission_rates(
+            student_assignments, 
+            assignments, 
+            students,
+            min_submission_rate
+        ))
+        
         if sa_errors:
             validation_errors['studentAssignments'] = sa_errors
-    
+
     # Validate student-course data
     student_courses = data_objects.get('studentCourses', [])
     if student_courses:
@@ -422,6 +444,66 @@ def validate_data_consistency(
         logger.info("Validation successful: no errors found")
     
     return validation_errors
+def validate_submission_rates(
+    student_assignments: List[Dict[str, Any]],
+    assignments: List[Dict[str, Any]],
+    students: List[Dict[str, Any]],
+    min_rate: float = 0.7  # Minimum expected submission rate
+) -> List[str]:
+    """
+    Validate that assignment submission rates are reasonable.
+    
+    Args:
+        student_assignments (List[Dict[str, Any]]): List of student assignment submissions
+        assignments (List[Dict[str, Any]]): List of all assignments
+        students (List[Dict[str, Any]]): List of all students
+        min_rate (float): Minimum acceptable submission rate
+        
+    Returns:
+        List[str]: List of validation error messages, empty if valid
+    """
+    errors = []
+    
+    if not assignments or not students:
+        return errors  # No assignments or students to validate
+    
+    # Create a map of assignment IDs
+    assignment_ids = {a['id'] for a in assignments}
+    
+    # Create a map of student IDs
+    student_ids = {s['id'] for s in students}
+    
+    # Count submissions per assignment
+    submissions_per_assignment = {}
+    for sa in student_assignments:
+        assignment_id = sa.get('assignmentId')
+        if assignment_id in assignment_ids:
+            if assignment_id not in submissions_per_assignment:
+                submissions_per_assignment[assignment_id] = 0
+            submissions_per_assignment[assignment_id] += 1
+    
+    # Validate each assignment's submission rate
+    for assignment in assignments:
+        assignment_id = assignment.get('id')
+        submission_count = submissions_per_assignment.get(assignment_id, 0)
+        
+        # Find students who should have submitted this assignment
+        eligible_student_count = 0
+        for student in students:
+            # In a full implementation, we would check if the student is enrolled
+            # in the course that contains this assignment
+            if student.get('id') in student_ids:
+                eligible_student_count += 1
+        
+        if eligible_student_count > 0:
+            submission_rate = submission_count / eligible_student_count
+            if submission_rate < min_rate:
+                errors.append(
+                    f"Assignment {assignment_id} has a low submission rate: "
+                    f"{submission_rate:.1%} ({submission_count}/{eligible_student_count})"
+                )
+    
+    return errors
 
 
 def log_validation_errors(errors: Dict[str, List[str]]) -> None:

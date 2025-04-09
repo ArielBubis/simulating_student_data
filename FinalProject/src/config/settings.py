@@ -15,6 +15,45 @@ SCHOOL_NAMES = [
     'אורט חקלאי פרדס חנה'
 ]
 
+# Mid-semester configuration settings
+MID_SEMESTER_SETTINGS = {
+    # Default mid-semester date (can be overridden via command line)
+    "target_date": datetime(2023, 11, 1),  # Set to approximately middle of academic year
+    
+    # Variation window (in days) around target date to create natural progress variation
+    "variation_days": 14,  
+    
+    # Progress profile adjustments - how each student profile affects completion probability
+    "profile_progress_modifiers": {
+        "High Achiever": 0.3,      # High achievers are more likely to be ahead
+        "Above Average": 0.15,     # Above average students slightly ahead
+        "Average": 0,             # Average students on track
+        "Struggling": -0.2         # Struggling students behind
+    },
+    
+    # Subject strength impact - how subject proficiency affects completion likelihood
+    "subject_strength_impact": 0.25,  # Maximum adjustment based on subject strength
+    
+    # Time factors - how assignment timing affects completion probability
+    "time_decay_factor": 0.1,      # Rate at which older assignments are more likely completed
+    
+    # Minimum completion probabilities by profile
+    "min_completion_probability": {
+        "High Achiever": 0.7,
+        "Above Average": 0.6,
+        "Average": 0.5,
+        "Struggling": 0.3
+    },
+    
+    # Maximum completion probabilities for future assignments by profile
+    "future_assignment_probability": {
+        "High Achiever": 0.2,      # High achievers sometimes work ahead
+        "Above Average": 0.1,
+        "Average": 0.05,
+        "Struggling": 0.0          # Struggling students don't work ahead
+    }
+}
+
 # Academic calendar settings
 ACADEMIC_YEAR = {
     "start_date": datetime(2023, 9, 1),  # September 1, 2023
@@ -148,3 +187,4 @@ TIME_TRACKING = {
 DATABASE_SETTINGS = {
     "batch_size": 500  # Number of documents to write in a single batch
 }
+
