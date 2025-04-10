@@ -43,7 +43,8 @@ class Student(User):
         self.entry_year = entry_year
         self.courses: List[str] = []  # Course IDs the student is enrolled in
         self.total_score: float = 0.0  # Aggregate score across all courses
-        
+        self.completion_percentage: float = 0.0  # Track percentage of assignments completed
+
         # Performance profile (for data generation)
         self.base_performance: float = 75.0  # Base performance level (0-100)
         self.subject_strengths: Dict[str, float] = {}  # Subject area to strength modifier
@@ -91,16 +92,19 @@ class Student(User):
         if subject_strengths:
             self.subject_strengths = subject_strengths
     
-    def update_total_score(self, new_score: float) -> None:
+    def update_total_score(self, new_score: float, completion_percentage: float = None) -> None:
         """
-        Update the student's total score.
+        Update the student's total score and completion percentage.
         
         Args:
             new_score (float): New total score
+            completion_percentage (float): New completion percentage
         """
         self.total_score = new_score
+        if completion_percentage is not None:
+            self.completion_percentage = completion_percentage
         self.updated_at = datetime.now()
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """
         Convert the Student object to a dictionary for Firestore.

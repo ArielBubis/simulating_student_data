@@ -182,7 +182,7 @@ def export_all_collections(data_objects: Dict[str, List[Dict[str, Any]]],
             
             # Add mid-semester indicator if applicable
             if is_mid_semester:
-                filename = f"{filename}_mid_semester"
+                filename = f"{filename}"
             
             json_dir = os.path.join(base_dir, 'json')
             json_success = export_collection_to_json(filename, documents, json_dir)
@@ -194,7 +194,7 @@ def export_all_collections(data_objects: Dict[str, List[Dict[str, Any]]],
             
             # Add mid-semester indicator if applicable
             if is_mid_semester:
-                filename = f"{filename}_mid_semester"
+                filename = f"{filename}"
             
             csv_dir = os.path.join(base_dir, 'csv')
             csv_success = export_collection_to_csv(filename, documents, csv_dir)
