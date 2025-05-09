@@ -828,25 +828,11 @@ class PerformanceGenerator:
             "updatedAt": datetime.now()
         }
         
-        # Get total assignments count
-        total_assignments = len(course_assignments)
-        
-        # Count completed assignments
-        completed_count = len(student_submissions)
-        
-        # Calculate completion percentage regardless of semester mode
-        completion_percentage = round(
-            (completed_count / total_assignments * 100), 1
-        ) if total_assignments > 0 else 0
-        
-        # Add completion percentage to record
-        student_course["completionPercentage"] = completion_percentage
-        
-        # If no submissions, return basic record with zero performance but accurate completion
-        if not student_submissions:
+        # If no submissions and not mid-semester, return basic record
+        if not student_submissions and not self.is_mid_semester:
             return student_course
         
-        # Calculate scores and weights from completed assignments only
+        # Calculate scores and weights from completed assignments
         assignment_scores = []
         assignment_weights = []
         total_time_spent = 0
@@ -863,18 +849,22 @@ class PerformanceGenerator:
                 assignment_weights.append(assignment.weight)
                 total_time_spent += submission.get('timeSpentMinutes', 0)
         
-        # Calculate final score from completed assignments only
+        # Calculate final score from completed assignments ONLY
         if assignment_scores:
             final_score = calculate_weighted_score(assignment_scores, assignment_weights)
         else:
             final_score = 0.0
         
-        # Update basic fields - score reflects only completed work
+        # Update basic fields
         student_course["finalScore"] = round(final_score, 1)
         student_course["totalTimeSpentMinutes"] = total_time_spent
         
         # For mid-semester data, add detailed progress metrics
         if self.is_mid_semester:
+            # Count assignments by status
+            total_assignments = len(course_assignments)
+            completed_count = len(student_submissions)
+            
             # Determine assignment counts by availability
             available_assignments = 0
             future_assignments = 0
@@ -918,8 +908,11 @@ class PerformanceGenerator:
                 "overallProgressPercent": round(completed_count / total_assignments * 100, 1) if total_assignments > 0 else 0
             }
             
-            # Calculate estimated final score (for reference only - this is the projected score)
-            # For incomplete assignments, estimate using student's performance profile
+            # Calculate estimated final score BASED ONLY ON COMPLETED ASSIGNMENTS
+            # Do not include pending or future assignments in this calculation
+            progress_metrics["actualScoreFromCompletedWork"] = student_course["finalScore"]
+            
+            # Calculate projected final score (including estimates for incomplete work)
             if total_assignments > completed_count:
                 # Get profile-based expected performance
                 profile = self._get_student_profile(student)
@@ -946,7 +939,7 @@ class PerformanceGenerator:
                         expected_scores.append(min(100, max(0, expected_score)))
                         expected_weights.append(assignment.weight)
                 
-                # Calculate projected final score - this is separate from actual performance
+                # Calculate projected final score
                 projected_score = calculate_weighted_score(expected_scores, expected_weights)
                 progress_metrics["projectedFinalScore"] = round(projected_score, 1)
             else:
@@ -993,7 +986,8 @@ class PerformanceGenerator:
                 student_course["trend"] = trend
         
         return student_course
-    
+
+
     def get_mid_semester_status_report(self) -> Dict[str, Any]:
         """
         Generate a detailed report on assignment status at mid-semester.
@@ -1356,33 +1350,47 @@ class PerformanceGenerator:
                     self.student_courses.append(student_course)
             
             # After processing all courses for this student, update the student's total metrics
-            student_courses = [sc for sc in self.student_courses if sc['studentId'] == student.id]
+            # student_courses = [sc for sc in self.student_courses if sc['studentId'] == student.id]
+            # if student_courses:
+            #     # Calculate score only based on completed assignments (finalScore already only includes completed work)
+            #     total_score = sum(sc['finalScore'] for sc in student_courses) / len(student_courses)
+                
+            #     # Calculate overall completion percentage
+            #     overall_completion = sum(sc.get('completionPercentage', 0) for sc in student_courses) / len(student_courses)
+                
+            #     # Update student with both metrics
+            #     student.update_total_score(round(total_score, 1))
+                
+            #     # Store completion percentage if the student class has this attribute
+            #     if hasattr(student, 'completion_percentage'):
+            #         student.completion_percentage = round(overall_completion, 1)
+                
+            #     # Calculate completion rate for student metrics
+            #     available_assignments = student_metrics["completedAssignments"] + student_metrics["pendingAssignments"]
+            #     if available_assignments > 0:
+            #         student_metrics["completionRate"] = round(
+            #             student_metrics["completedAssignments"] / available_assignments * 100, 1
+            #         )
+                
+            #     # Increment profile total count
+            #     if self.is_mid_semester:
+            #         status_by_profile[student_profile]["total"] += student_metrics["totalAssignments"]
+            #         student_progress_metrics.append(student_metrics)
+            student_courses = [
+                sc for sc in self.student_courses 
+                if sc['studentId'] == student.id
+            ]
             if student_courses:
-                # Calculate score only based on completed assignments (finalScore already only includes completed work)
-                total_score = sum(sc['finalScore'] for sc in student_courses) / len(student_courses)
+                # Only consider courses with non-zero scores (meaning they have completed assignments)
+                valid_courses = [sc for sc in student_courses if sc['finalScore'] > 0]
                 
-                # Calculate overall completion percentage
-                overall_completion = sum(sc.get('completionPercentage', 0) for sc in student_courses) / len(student_courses)
+                if valid_courses:
+                    total_score = sum(sc['finalScore'] for sc in valid_courses) / len(valid_courses)
+                else:
+                    # If no completed assignments in any course, score is 0
+                    total_score = 0.0
                 
-                # Update student with both metrics
                 student.update_total_score(round(total_score, 1))
-                
-                # Store completion percentage if the student class has this attribute
-                if hasattr(student, 'completion_percentage'):
-                    student.completion_percentage = round(overall_completion, 1)
-                
-                # Calculate completion rate for student metrics
-                available_assignments = student_metrics["completedAssignments"] + student_metrics["pendingAssignments"]
-                if available_assignments > 0:
-                    student_metrics["completionRate"] = round(
-                        student_metrics["completedAssignments"] / available_assignments * 100, 1
-                    )
-                
-                # Increment profile total count
-                if self.is_mid_semester:
-                    status_by_profile[student_profile]["total"] += student_metrics["totalAssignments"]
-                    student_progress_metrics.append(student_metrics)
-        
         # If in mid-semester mode, store statistics about assignment completion status
         if self.is_mid_semester:
             # Calculate total assignments
@@ -1453,34 +1461,38 @@ class PerformanceGenerator:
             if sa['studentId'] == student_id
         ]
         
-        # Calculate metrics
-        total_assignments = len(student_assignments)
-        completed_assignments = sum(1 for sa in student_assignments if sa['submissionDate'])
-        total_time_spent = sum(sa.get('timeSpentMinutes', 0) for sa in student_assignments)
-        average_score = (
-            sum(sa['assessmentScore'] for sa in student_assignments) / total_assignments
-            if total_assignments > 0 else 0
-        )
+        # Calculate metrics - ONLY USE COMPLETED ASSIGNMENTS
+        # Filter to make sure we only count assignments that have submissions
+        completed_assignments = [sa for sa in student_assignments if 'assessmentScore' in sa]
+        total_assignments = len(completed_assignments)
+        
+        total_time_spent = sum(sa.get('timeSpentMinutes', 0) for sa in completed_assignments)
+        
+        # Calculate average score ONLY from completed assignments
+        if total_assignments > 0:
+            average_score = sum(sa['assessmentScore'] for sa in completed_assignments) / total_assignments
+        else:
+            average_score = 0
         
         # Count late submissions
-        late_submissions = sum(1 for sa in student_assignments if sa.get('isLate', False))
+        late_submissions = sum(1 for sa in completed_assignments if sa.get('isLate', False))
         late_submission_rate = (
-            late_submissions / completed_assignments * 100
-            if completed_assignments > 0 else 0
+            late_submissions / total_assignments * 100
+            if total_assignments > 0 else 0
         )
         
         # Build summary
         summary = {
             "studentId": student_id,
             "studentName": student.name,
-            "totalScore": student.total_score,
+            "totalScore": average_score,  # Update this to use our calculated average
             "coursesEnrolled": len(student.courses),
             "coursesCompleted": sum(1 for sc in student_courses if sc['finalScore'] > 0),
-            "totalAssignments": total_assignments,
-            "completedAssignments": completed_assignments,
+            "totalCompletedAssignments": total_assignments,  # Rename to be clear these are completed
+            "totalAvailableAssignments": len(student_assignments),  # This includes all assignments
             "completionRate": (
-                completed_assignments / total_assignments * 100
-                if total_assignments > 0 else 0
+                total_assignments / len(student_assignments) * 100
+                if student_assignments else 0
             ),
             "averageScore": round(average_score, 1),
             "totalTimeSpentMinutes": total_time_spent,
@@ -1498,6 +1510,7 @@ class PerformanceGenerator:
                 )
                 
                 if course_record:
+                    # Only use finalScore as it already reflects only completed assignments
                     course_breakdown.append({
                         "courseId": course_id,
                         "courseName": course.name,

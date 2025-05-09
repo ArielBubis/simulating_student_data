@@ -8,11 +8,11 @@ from typing import Dict, List, Any
 # School names from the requirements
 SCHOOL_NAMES = [
     'REVODUCATE', 
-    'אורט בהאמס', 
-    'בית ספר קציר - משגב', 
-    'בית החינוך כרמל זבולון', 
-    'בית הספר קציני ים עכו', 
-    'אורט חקלאי פרדס חנה'
+    # 'Ort Bahamas', 
+    # 'Katzir School - Misgav', 
+    # 'Carmel Zevulun Educational Center', 
+    # 'Acre Naval Officers School', 
+    # 'Pardes Hanna Agricultural Organization'
 ]
 
 # Mid-semester configuration settings
@@ -88,8 +88,11 @@ COURSE_SETTINGS = {
 
 # Module generation settings
 MODULE_SETTINGS = {
-    "min_modules_per_course": 5,
-    "max_modules_per_course": 30,
+    # "min_modules_per_course": 5,
+    # "max_modules_per_course": 30,
+    "min_modules_per_course": 1,
+    "max_modules_per_course": 5,
+
     "module_types": ["Theory", "Practice", "Project", "Research", "Discussion"],
     "required_module_probability": 0.8  # 80% chance a module is required
 }
@@ -127,13 +130,13 @@ ASSIGNMENT_SETTINGS = {
             "std_dev": 10,
             "skewness": -0.8
         },
-        {
-            "name": "Participation",
-            "weight": 0.10,
-            "mean_score": 90,
-            "std_dev": 5,
-            "skewness": -1.2
-        }
+        # {
+        #     "name": "Participation",
+        #     "weight": 0.10,
+        #     "mean_score": 90,
+        #     "std_dev": 5,
+        #     "skewness": -1.2
+        # }
     ],
     "late_submission_probability": 0.15,  # 15% chance of late submission
     "max_days_late": 5  # Maximum days late for submission
@@ -142,16 +145,19 @@ ASSIGNMENT_SETTINGS = {
 # User generation settings
 USER_SETTINGS = {
     "teachers_per_school": {
-        "min": 5,
-        "max": 20
+        # "min": 5,
+        # "max": 20
+        "min": 1,
+        "max": 3
+
     },
     "courses_per_teacher": {
         "min": 1,
-        "max": 3
+        "max": 5
     },
     "students_per_course": {
-        "min": 12,
-        "max": 30
+        "min": 5,
+        "max": 15
     },
     "student_performance_profiles": [
         {"name": "High Achiever", "base_score": 90, "consistency": 0.85, "proportion": 0.15},
