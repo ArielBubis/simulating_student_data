@@ -17,4 +17,4 @@ venv.bak/
 
 FinalProject/src/output/
 src/output/
-
+*.csv
