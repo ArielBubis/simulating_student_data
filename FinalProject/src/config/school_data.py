@@ -100,30 +100,30 @@ COURSE_SPECIALIZATIONS = {
         "Creative Writing",
         "Sociology"
     ],
-    "Environmental Studies and Agriculture": [
-        "Environmental Science",
-        "Sustainable Agriculture",
-        "Ecology",
-        "Natural Resource Management",
-        "Climate Studies",
-        "Conservation Biology"
-    ],
-    "Maritime Studies and Navigation": [
-        "Maritime Navigation",
-        "Marine Biology",
-        "Naval Architecture",
-        "Oceanography",
-        "Seamanship",
-        "Maritime Law"
-    ],
-    "Agriculture and Environmental Science": [
-        "Agricultural Science",
-        "Horticulture",
-        "Soil Science",
-        "Agricultural Economics",
-        "Animal Science",
-        "Sustainable Farming"
-    ]
+    # "Environmental Studies and Agriculture": [
+    #     "Environmental Science",
+    #     "Sustainable Agriculture",
+    #     "Ecology",
+    #     "Natural Resource Management",
+    #     "Climate Studies",
+    #     "Conservation Biology"
+    # ],
+    # "Maritime Studies and Navigation": [
+    #     "Maritime Navigation",
+    #     "Marine Biology",
+    #     "Naval Architecture",
+    #     "Oceanography",
+    #     "Seamanship",
+    #     "Maritime Law"
+    # ],
+    # "Agriculture and Environmental Science": [
+    #     "Agricultural Science",
+    #     "Horticulture",
+    #     "Soil Science",
+    #     "Agricultural Economics",
+    #     "Animal Science",
+    #     "Sustainable Farming"
+    # ]
 }
 
 # Map to help generate appropriate course names for each school based on their focus

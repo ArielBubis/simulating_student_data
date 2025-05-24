@@ -2,6 +2,8 @@ import os
 from fastapi import FastAPI
 import uvicorn
 from contextlib import asynccontextmanager
+
+from config.settings import MID_SEMESTER_SETTINGS
 # from firestore_admin_services import db, add_object_to_firestore
 
 # new_object = {
@@ -46,7 +48,7 @@ from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime
 
 # Import generators
-from generators.id_generator import reset_used_ids, get_id_stats
+from generators.id_generator import generate_unique_id, reset_used_ids, get_id_stats
 from generators.school_generator import SchoolGenerator
 from generators.user_generator import TeacherGenerator, StudentGenerator
 from generators.course_generator import CourseGenerator
@@ -88,17 +90,41 @@ class DataGenerator:
     """
     Main class for orchestrating the data generation pipeline.
     """
-    def __init__(self, upload_to_firebase: bool = False, export_format: str = 'none', output_dir: str = './output'):
+    def __init__(self, 
+                 upload_to_firebase: bool = False, 
+                 export_format: str = 'none', 
+                 output_dir: str = './output',
+                 is_mid_semester: bool = False,
+                 cutoff_date: Optional[datetime] = None,
+                 variation_days: Optional[int] = None):
         """
         Initialize the DataGenerator.
         
         Args:
             upload_to_firebase (bool): Whether to upload generated data to Firebase
+            export_format (str): Format to export data ('json', 'csv', 'both', or 'none')
+            output_dir (str): Directory to save exported data
+            is_mid_semester (bool): Whether to generate mid-semester data
+            cutoff_date (Optional[datetime]): Custom mid-semester cutoff date
+            variation_days (Optional[int]): Custom variation window in days
         """
         self.upload_to_firebase = upload_to_firebase
         self.firestore = Firestore() if upload_to_firebase else None
         self.export_format = export_format
         self.output_dir = output_dir
+        
+        # Mid-semester parameters
+        self.is_mid_semester = is_mid_semester
+        
+        # Use provided cutoff date or default from settings
+        if is_mid_semester:
+            self.cutoff_date = cutoff_date or MID_SEMESTER_SETTINGS["target_date"]
+            self.variation_days = variation_days or MID_SEMESTER_SETTINGS["variation_days"]
+            logger.info(f"Generating mid-semester data with target date: {self.cutoff_date}")
+        else:
+            self.cutoff_date = None
+            self.variation_days = None
+        
         # Initialize generators
         self.school_generator = None
         self.teacher_generator = None
@@ -122,9 +148,19 @@ class DataGenerator:
         self.generation_stats = {}
         self.start_time = None
         self.end_time = None
+        
     def _export_data(self) -> None:
         """Export generated data to local files in specified format."""
-        logger.info(f"Exporting data in {self.export_format} format to {self.output_dir}...")
+        # Create export directory with semester state in the name
+        semester_state = "mid_semester" if self.is_mid_semester else "full_semester"
+        output_dir = f"{self.output_dir}/{semester_state}"
+        
+        # If mid-semester, add the cutoff date to the directory name
+        if self.is_mid_semester and self.cutoff_date:
+            date_str = self.cutoff_date.strftime("%Y%m%d")
+            output_dir = f"{output_dir}_{date_str}"
+        
+        logger.info(f"Exporting data in {self.export_format} format to {output_dir}...")
         
         # Prepare data for export
         data_objects = {
@@ -138,6 +174,68 @@ class DataGenerator:
             'studentCourses': self.student_courses
         }
         
+        # Add mid-semester specific data
+        if self.is_mid_semester:
+            # Add pending assignments data (assignments available but not submitted)
+            pending_assignments = []
+            future_assignments = []
+            
+            # Generate records for all non-submitted assignments
+            for student in self.students:
+                student_effective_date = self.performance_generator._get_student_effective_date(student)                
+                for assignment in self.assignments:
+                    # Check if this student-assignment pair exists in completed submissions
+                    is_completed = any(
+                        sa['studentId'] == student.id and sa['assignmentId'] == assignment.id
+                        for sa in self.student_assignments
+                    )
+                    
+                    if not is_completed:
+                        # Determine if assignment is available to this student
+                        if assignment.assign_date <= student_effective_date:
+                            # Assignment is available but not completed
+                            pending_assignments.append({
+                                "id": generate_unique_id("pa_"),
+                                "studentId": student.id,
+                                "assignmentId": assignment.id,
+                                "status": "available",
+                                "isAvailable": True,
+                                "createdAt": datetime.now(),
+                                "updatedAt": datetime.now()
+                            })
+                        else:
+                            # Assignment is not yet available
+                            future_assignments.append({
+                                "id": generate_unique_id("fa_"),
+                                "studentId": student.id,
+                                "assignmentId": assignment.id,
+                                "status": "future",
+                                "isAvailable": False,
+                                "createdAt": datetime.now(),
+                                "updatedAt": datetime.now()
+                            })
+            
+            # Add these to data objects
+            data_objects['pendingAssignments'] = pending_assignments
+            data_objects['futureAssignments'] = future_assignments
+            
+            # Include mid-semester progress report
+            if hasattr(self.performance_generator, 'generate_mid_semester_progress_report'):
+                progress_report = self.performance_generator.generate_mid_semester_progress_report()
+                data_objects['midSemesterReport'] = [progress_report]
+        
+        # Add metadata about the generation
+        metadata = {
+            "generatedAt": datetime.now().isoformat(),
+            "isMidSemester": self.is_mid_semester,
+        }
+        
+        if self.is_mid_semester and self.cutoff_date:
+            metadata['cutoffDate'] = self.cutoff_date.isoformat()
+            metadata['variationDays'] = self.variation_days
+        
+        data_objects['metadata'] = [metadata]
+        
         # Determine export formats
         formats = []
         if self.export_format == 'json':
@@ -148,7 +246,7 @@ class DataGenerator:
             formats = ['json', 'csv']
         
         # Export the data
-        results = export_all_collections(data_objects, formats, self.output_dir)
+        results = export_all_collections(data_objects, formats, output_dir)
         
         # Log results
         success_count = sum(1 for success in results.values() if success)
@@ -178,7 +276,6 @@ class DataGenerator:
             # Generate data in the correct order
             self._generate_schools()
             self._generate_teachers()
-            # self._generate_students()
             self._generate_courses()
             self._generate_students_for_courses()
             self._generate_modules()
@@ -192,9 +289,26 @@ class DataGenerator:
             if self.upload_to_firebase:
                 self._upload_to_firebase()
             
-                    # Export to local files if enabled
+            # Export to local files if enabled
             if self.export_format != 'none':
                 self._export_data()
+                
+                # If in mid-semester mode, export additional specialized files
+                if self.is_mid_semester and hasattr(self.performance_generator, 'export_assignment_status_data'):
+                    # Create specialized export directory
+                    special_export_dir = f"{self.output_dir}/mid_semester_analysis"
+                    if self.cutoff_date:
+                        date_str = self.cutoff_date.strftime("%Y%m%d")
+                        special_export_dir = f"{special_export_dir}_{date_str}"
+                    
+                    # Export specialized data
+                    self.performance_generator.export_assignment_status_data(
+                        f"{special_export_dir}/status"
+                    )
+                    self.performance_generator.export_mid_semester_summary(
+                        f"{special_export_dir}/summary"
+                    )
+            
             # Calculate statistics
             self._calculate_stats()
             
@@ -205,8 +319,7 @@ class DataGenerator:
             
         except Exception as e:
             logger.error(f"Error in data generation: {str(e)}", exc_info=True)
-            return False
-    
+            return False    
     def _generate_schools(self) -> None:
         """Generate school data."""
         logger.info("Generating schools...")
@@ -305,12 +418,18 @@ class DataGenerator:
                 course.id, school_id, num_students
             )
             for student in enrolled_students:
-                course.add_student(student.id)  # Add this line
+                course.add_student(student.id)
             logger.debug(f"Enrolled {len(enrolled_students)} students in course {course.id}")
         
         logger.info("Generating student performance data...")
         self.performance_generator = PerformanceGenerator(
-            self.students, self.courses, self.modules, self.assignments
+            self.students, 
+            self.courses, 
+            self.modules, 
+            self.assignments,
+            is_mid_semester=self.is_mid_semester,
+            cutoff_date=self.cutoff_date,
+            variation_days=self.variation_days
         )
         
         self.student_assignments, self.student_courses = self.performance_generator.generate_all_performance_data()
@@ -334,8 +453,14 @@ class DataGenerator:
             'studentCourses': self.student_courses
         }
         
-        # Run validation
-        validation_errors = validate_data_consistency(data_objects)
+        # Add mid-semester flag for validation
+        validation_context = {
+            'is_mid_semester': self.is_mid_semester,
+            'cutoff_date': self.cutoff_date
+        }
+        
+        # Run validation with mid-semester context
+        validation_errors = validate_data_consistency(data_objects, validation_context)
         
         if validation_errors:
             logger.warning("Validation found issues with the generated data")
@@ -410,6 +535,13 @@ class DataGenerator:
         
         print("\n========== DATA GENERATION SUMMARY ==========")
         print(f"Generation completed in {round(self.end_time - self.start_time, 2)} seconds")
+        
+        # Print mid-semester information if applicable
+        if self.is_mid_semester:
+            print(f"\nMID-SEMESTER DATA GENERATION")
+            print(f"Target date: {self.cutoff_date}")
+            print(f"Variation window: ±{self.variation_days} days")
+        
         print("\nEntities generated:")
         
         for key, value in self.generation_stats.items():
@@ -419,6 +551,12 @@ class DataGenerator:
         print("\nIDs generated:")
         for key, value in self.generation_stats.get('id_stats', {}).items():
             print(f"  {key}: {value}")
+        
+        # If mid-semester, add completion statistics
+        if self.is_mid_semester and 'completion_stats' in self.generation_stats:
+            print("\nMid-semester completion statistics:")
+            for key, value in self.generation_stats.get('completion_stats', {}).items():
+                print(f"  {key}: {value}")
         
         print("\nExample data paths:")
         print(f"  School: {self.schools[0].id if self.schools else 'None'}")
@@ -456,7 +594,25 @@ def parse_arguments():
         default='./output',
         help='Directory to save exported data (default: ./output)'
     )
+
+    # mid-semester related arguments
+    parser.add_argument(
+        '--mid-semester',
+        action='store_true',
+        help='Generate mid-semester data instead of end-of-semester data'
+    )
     
+    parser.add_argument(
+        '--cutoff-date',
+        type=lambda d: datetime.strptime(d, '%Y-%m-%d'),
+        help='Specify custom mid-semester cutoff date (format: YYYY-MM-DD)'
+    )
+    
+    parser.add_argument(
+        '--variation-days',
+        type=int,
+        help='Variation window in days around cutoff date (default from settings)'
+    )
     return parser.parse_args()
 
 # Update the imports at the top of main.py to include:
@@ -473,7 +629,10 @@ if __name__ == "__main__":
     generator = DataGenerator(
         upload_to_firebase=args.upload,
         export_format=args.export,
-        output_dir=args.output_dir
+        output_dir=args.output_dir,
+        is_mid_semester=args.mid_semester,
+        cutoff_date=args.cutoff_date,
+        variation_days=args.variation_days
     )
     success = generator.generate_all_data()
     
