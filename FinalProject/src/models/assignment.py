@@ -21,7 +21,8 @@ class Assignment:
         assignment_type: Optional[str] = None,
         max_score: float = 100.0,
         weight: float = 1.0,
-        max_attempts: Optional[int] = None
+        max_attempts: Optional[int] = None,
+        course_id: Optional[str] = None
     ):
         """
         Initialize a new Assignment instance.
@@ -37,10 +38,12 @@ class Assignment:
             max_score (float): Maximum possible score for the assignment
             weight (float): Weight of this assignment in the module grade calculation
             max_attempts (Optional[int]): Maximum number of attempts allowed
+            course_id (Optional[str]): ID of the course this assignment belongs to (for easier access)
         """
         self.id = id
         self.name = name
         self.module_id = module_id
+        self.course_id = course_id
         self.assign_date = assign_date
         self.due_date = due_date
         self.description = description
@@ -133,6 +136,7 @@ class Assignment:
             "id": self.id,
             "name": self.name,
             "moduleId": self.module_id,
+            "courseId": self.course_id,
             "assignDate": self.assign_date,
             "dueDate": self.due_date,
             "description": self.description,
@@ -168,7 +172,8 @@ class Assignment:
             assignment_type=data.get('assignmentType'),
             max_score=data.get('maxScore', 100.0),
             weight=data.get('weight', 1.0),
-            max_attempts=data.get('maxAttempts')
+            max_attempts=data.get('maxAttempts'),
+            course_id=data.get('courseId', '')
         )
         
         # Set student submissions if available
@@ -190,4 +195,4 @@ class Assignment:
         Returns:
             str: A string representation
         """
-        return f"Assignment(id={self.id}, name={self.name}, type={self.assignment_type})"
+        return f"Assignment(id={self.id}, name={self.name}, type={self.assignment_type}, course_id={self.course_id})"

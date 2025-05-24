@@ -8,20 +8,20 @@ from typing import Dict, List, Any
 # School names from the requirements
 SCHOOL_NAMES = [
     'REVODUCATE', 
-    'אורט בהאמס', 
-    'בית ספר קציר - משגב', 
-    'בית החינוך כרמל זבולון', 
-    'בית הספר קציני ים עכו', 
-    'אורט חקלאי פרדס חנה'
-]
+    # 'Ort Bahamas', 
+    # 'Katzir School - Misgav', 
+    # 'Carmel Zevulun Educational Center', 
+    # 'Acre Naval Officers School', 
+    # 'Pardes Hanna Agricultural Organization'
+    ]
 
 # Academic calendar settings
 ACADEMIC_YEAR = {
-    "start_date": datetime(2023, 9, 1),  # September 1, 2023
-    "end_date": datetime(2024, 6, 30),   # June 30, 2024
+    "start_date": datetime(2024, 9, 1),  # September 1, 2023
+    "end_date": datetime(2025, 6, 30),   # June 30, 2024
     "semester_break": {
-        "start_date": datetime(2024, 1, 20),
-        "end_date": datetime(2024, 2, 5)
+        "start_date": datetime(2025, 1, 20),
+        "end_date": datetime(2025, 2, 5)
     },
     "holidays": [
         {"name": "Rosh Hashanah", "start_date": datetime(2023, 9, 15), "end_date": datetime(2023, 9, 17)},
@@ -49,8 +49,11 @@ COURSE_SETTINGS = {
 
 # Module generation settings
 MODULE_SETTINGS = {
-    "min_modules_per_course": 5,
-    "max_modules_per_course": 30,
+    # "min_modules_per_course": 5,
+    # "max_modules_per_course": 30,
+    "min_modules_per_course": 1,
+    "max_modules_per_course": 5,
+
     "module_types": ["Theory", "Practice", "Project", "Research", "Discussion"],
     "required_module_probability": 0.8  # 80% chance a module is required
 }
@@ -88,13 +91,13 @@ ASSIGNMENT_SETTINGS = {
             "std_dev": 10,
             "skewness": -0.8
         },
-        {
-            "name": "Participation",
-            "weight": 0.10,
-            "mean_score": 90,
-            "std_dev": 5,
-            "skewness": -1.2
-        }
+        # {
+        #     "name": "Participation",
+        #     "weight": 0.10,
+        #     "mean_score": 90,
+        #     "std_dev": 5,
+        #     "skewness": -1.2
+        # }
     ],
     "late_submission_probability": 0.15,  # 15% chance of late submission
     "max_days_late": 5  # Maximum days late for submission
@@ -103,16 +106,25 @@ ASSIGNMENT_SETTINGS = {
 # User generation settings
 USER_SETTINGS = {
     "teachers_per_school": {
-        "min": 5,
-        "max": 20
+        # "min": 5,
+        # "max": 20
+        "min": 1,
+        "max": 5
+
     },
     "courses_per_teacher": {
+        # "min": 1,
+        # "max": 3
         "min": 1,
-        "max": 3
+        "max": 1
+
     },
     "students_per_course": {
-        "min": 12,
-        "max": 30
+        # "min": 12,
+        # "max": 30
+        "min": 7,
+        "max": 15
+
     },
     "student_performance_profiles": [
         {"name": "High Achiever", "base_score": 90, "consistency": 0.85, "proportion": 0.15},
@@ -139,7 +151,7 @@ TIME_TRACKING = {
         "Exam": {"min": 30, "max": 180},
         "Homework": {"min": 30, "max": 120},
         "Project": {"min": 60, "max": 600},
-        "Participation": {"min": 30, "max": 90}
+        # "Participation": {"min": 30, "max": 90}
     },
     "time_variability": 0.3  # 30% random variation in time spent
 }

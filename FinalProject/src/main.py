@@ -58,7 +58,7 @@ from generators.performance_generator import PerformanceGenerator
 from utils.validation_utils import validate_data_consistency, log_validation_errors
 
 # Import Firebase utilities
-from firebase.firestore import Firestore
+# from firebase.firestore import Firestore
 
 log_file = os.path.join(os.path.expanduser("~"), "logs", "src/data_generation.log")
 

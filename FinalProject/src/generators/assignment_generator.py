@@ -131,11 +131,11 @@ class AssignmentGenerator:
                 "This project allows you to apply concepts in a practical context.",
                 "Create a comprehensive solution that showcases your skills."
             ],
-            "Participation": [
-                "Contribute to class discussions and activities.",
-                "Your active participation in class activities will be assessed.",
-                "Engage with the material through discussion and collaboration."
-            ]
+            # "Participation": [
+            #     "Contribute to class discussions and activities.",
+            #     "Your active participation in class activities will be assessed.",
+            #     "Engage with the material through discussion and collaboration."
+            # ]
         }
         
         # Default if assignment type not in predefined list
@@ -205,7 +205,8 @@ class AssignmentGenerator:
                 assignment_type=assignment_type,
                 max_score=100.0,  # Standard max score
                 weight=weight,
-                max_attempts=max_attempts
+                max_attempts=max_attempts,
+                course_id=module.course_id  # Add course_id from module
             )
             
             # Add to our lists

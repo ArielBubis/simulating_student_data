@@ -29,13 +29,7 @@ Students:
                 "totalTime": Date, 
                 "totalScore": Integer,
                 "notes": String,
-                "questions": [
-                {
-                    "questionNumber": Integer, // reference to questions collection
-                    "score": Double,
-                    "note": String
-                }
-                ]
+                
             }
             ]
         }

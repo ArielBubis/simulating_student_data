@@ -280,6 +280,105 @@ def validate_assignment_counts(
     return errors
 
 
+def validate_assignment_submission_rates(
+    assignments: List[Dict[str, Any]],
+    student_assignments: List[Dict[str, Any]],
+    students_per_course: Dict[str, Set[str]],
+    modules: List[Dict[str, Any]],
+    min_submission_rate: float = 0.7
+) -> List[str]:
+    """
+    Validate that assignments have appropriate submission rates and log statistics.
+    
+    Args:
+        assignments (List[Dict[str, Any]]): List of assignment dictionaries
+        student_assignments (List[Dict[str, Any]]): List of student-assignment dictionaries
+        students_per_course (Dict[str, Set[str]]): Map of course IDs to student ID sets
+        modules (List[Dict[str, Any]]): List of module dictionaries
+        min_submission_rate (float): Minimum expected submission rate (0.0-1.0)
+        
+    Returns:
+        List[str]: List of validation error messages, empty if valid
+    """
+    errors = []
+    
+    # Create module-to-course mapping for quick lookup
+    module_to_course = {module['id']: module['courseId'] for module in modules}
+    
+    # Group submissions by assignment
+    submissions_by_assignment = {}
+    for sa in student_assignments:
+        assignment_id = sa.get('assignmentId')
+        if assignment_id not in submissions_by_assignment:
+            submissions_by_assignment[assignment_id] = []
+        submissions_by_assignment[assignment_id].append(sa)
+    
+    # Calculate submission rates and log statistics
+    logger.info(f"=== Assignment Submission Statistics ===")
+    
+    for assignment in assignments:
+        assignment_id = assignment.get('id')
+        module_id = assignment.get('moduleId')
+        name = assignment.get('name', 'Unknown')
+        
+        if not module_id or module_id not in module_to_course:
+            errors.append(f"Assignment {assignment_id} has invalid module reference: {module_id}")
+            continue
+            
+        course_id = module_to_course[module_id]
+        
+        # Get students in this course
+        students_in_course = students_per_course.get(course_id, set())
+        expected_submission_count = len(students_in_course)
+        
+        if expected_submission_count == 0:
+            logger.warning(f"Assignment {assignment_id} ({name}) has no expected students")
+            continue
+            
+        # Get actual submissions
+        submissions = submissions_by_assignment.get(assignment_id, [])
+        actual_submission_count = len(submissions)
+        
+        # Calculate submission rate
+        submission_rate = actual_submission_count / expected_submission_count if expected_submission_count > 0 else 0
+        
+        # # Log statistics
+        # logger.info(
+        #     f"Assignment: {assignment_id} ({name}) - "
+        #     f"Submissions: {actual_submission_count}/{expected_submission_count} "
+        #     f"({submission_rate:.1%})"
+        # )
+        
+        # Calculate late submissions
+        late_submissions = 0
+        on_time_submissions = 0
+        due_date = assignment.get('dueDate')
+        
+        # if due_date and submissions:
+        #     for sub in submissions:
+        #         if sub.get('submissionDate') and sub.get('submissionDate') > due_date:
+        #             late_submissions += 1
+        #         else:
+        #             on_time_submissions += 1
+                    
+        #     late_rate = late_submissions / len(submissions) if submissions else 0
+        #     logger.info(
+        #         f"  - On-time: {on_time_submissions} ({1-late_rate:.1%}) | "
+        #         f"Late: {late_submissions} ({late_rate:.1%})"
+        #     )
+                    
+        # Validate submission rate
+        if submission_rate < min_submission_rate:
+            errors.append(
+                f"Assignment {assignment_id} ({name}) has low submission rate: "
+                f"{submission_rate:.1%} (minimum: {min_submission_rate:.1%})"
+            )
+            logger.info(
+                f"  - Low submission rate: {submission_rate:.1%} (minimum: {min_submission_rate:.1%})"
+            )
+    return errors
+
+
 def validate_data_consistency(
     data_objects: Dict[str, List[Dict[str, Any]]]
 ) -> Dict[str, List[str]]:
@@ -371,6 +470,35 @@ def validate_data_consistency(
     ))
     if assignment_errors:
         validation_errors['assignments'] = assignment_errors
+    
+    # Build course-to-students mapping for submission rate validation
+    students_per_course = {}
+    for course in courses:
+        course_id = course.get('id')
+        students_list = course.get('students', [])
+        if isinstance(students_list, list):
+            students_per_course[course_id] = set(students_list)
+    
+    # Also check studentCourses for additional enrollments
+    student_courses = data_objects.get('studentCourses', [])
+    for sc in student_courses:
+        course_id = sc.get('courseId')
+        student_id = sc.get('studentId')
+        if course_id and student_id:
+            if course_id not in students_per_course:
+                students_per_course[course_id] = set()
+            students_per_course[course_id].add(student_id)
+    
+    # Validate assignment submission rates
+    student_assignments = data_objects.get('studentAssignments', [])
+    assignment_submission_errors = validate_assignment_submission_rates(
+        assignments, student_assignments, students_per_course, modules
+    )
+    
+    if assignment_submission_errors:
+        if 'assignments' not in validation_errors:
+            validation_errors['assignments'] = []
+        validation_errors['assignments'].extend(assignment_submission_errors)
     
     # Validate student-assignment data
     student_assignments = data_objects.get('studentAssignments', [])

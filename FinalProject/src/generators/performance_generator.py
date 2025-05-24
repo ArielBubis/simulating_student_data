@@ -106,7 +106,6 @@ class PerformanceGenerator:
             List[Assignment]: List of assignments for the module
         """
         return [a for a in self.assignments if a.module_id == module_id]
-    
     def _get_assignments_for_course(self, course_id: str) -> List[Assignment]:
         """
         Get all assignments for a specific course.
@@ -117,7 +116,13 @@ class PerformanceGenerator:
         Returns:
             List[Assignment]: List of assignments for the course
         """
-        # Get modules for this course
+        # First try getting assignments directly using course_id
+        direct_assignments = [a for a in self.assignments if a.course_id == course_id]
+        
+        if direct_assignments:
+            return direct_assignments
+        
+        # Fallback to the old method if course_id is not set on assignments
         course_modules = self._get_modules_for_course(course_id)
         module_ids = [m.id for m in course_modules]
         
@@ -220,6 +225,8 @@ class PerformanceGenerator:
             "id": generate_unique_id("sa_"),
             "studentId": student.id,
             "assignmentId": assignment.id,
+            "moduleId": assignment.module_id,
+            "courseId": assignment.course_id,
             "submissionDate": submission_date,
             "assessmentScore": round(assessment_score, 1),
             "timeSpentMinutes": time_spent,
@@ -537,7 +544,11 @@ class PerformanceGenerator:
                 })
         
         summary["assignmentBreakdown"] = assignment_breakdown
-        
+        print("------------------------------------------")
+        print("Assignment Breakdown:")
+        print(summary["assignmentBreakdown"])
+        print("------------------------------------------")
+
         return summary
     
     def student_assignments_to_firestore(self) -> List[Dict[str, Any]]:
