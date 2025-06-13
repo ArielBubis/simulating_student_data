@@ -56,11 +56,11 @@ MID_SEMESTER_SETTINGS = {
 
 # Academic calendar settings
 ACADEMIC_YEAR = {
-    "start_date": datetime(2024, 9, 1),  # September 1, 2023
-    "end_date": datetime(2025, 6, 30),   # June 30, 2024
+    "start_date": datetime(2023, 9, 1),  # September 1, 2023
+    "end_date": datetime(2024, 6, 30),   # June 30, 2024
     "semester_break": {
-        "start_date": datetime(2025, 1, 20),
-        "end_date": datetime(2025, 2, 5)
+        "start_date": datetime(2024, 1, 20),
+        "end_date": datetime(2024, 2, 5)
     },
     "holidays": [
         {"name": "Rosh Hashanah", "start_date": datetime(2023, 9, 15), "end_date": datetime(2023, 9, 17)},

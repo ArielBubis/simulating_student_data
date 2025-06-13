@@ -619,7 +619,7 @@ class PerformanceGenerator:
         Returns:
             Tuple[int, int]: Minimum and maximum time in minutes
         """
-        default_range = (30, 120)  # Default: 30 min to 2 hours
+        default_range = (30, 240)  # Default: 30 min to 2 hours
         
         if not self.time_per_assignment_minutes:
             return default_range
@@ -628,7 +628,7 @@ class PerformanceGenerator:
         if not type_range:
             return default_range
         
-        return (type_range.get('min', 30), type_range.get('max', 120))
+        return (type_range.get('min', 30), type_range.get('max', 240))
     
     def generate_student_assignment_data(
         self, 
@@ -854,7 +854,7 @@ class PerformanceGenerator:
             if assignment:
                 assignment_scores.append(submission['assessmentScore'])
                 assignment_weights.append(assignment.weight)
-                total_time_spent += submission.get('timeSpentMinutes', 0)
+                total_time_spent += submission.get('timeSpentMinutes', 60)
         
         # Calculate final score from completed assignments ONLY
         if assignment_scores:
@@ -929,10 +929,13 @@ class PerformanceGenerator:
                 # Add actual scores from completed assignments
                 expected_scores.extend(assignment_scores)
                 expected_weights.extend(assignment_weights)
-                
-                # Add estimated scores for pending assignments
+                  # Add estimated scores for pending assignments ONLY (exclude future assignments)
                 for assignment in course_assignments:
                     if assignment.id not in [sa['assignmentId'] for sa in student_submissions]:
+                        # Check if this is a future assignment - if so, skip it
+                        if assignment.assign_date > student_effective_date:
+                            continue  # Skip future assignments from projected score calculation
+                        
                         # Find subject area
                         subject_area = self._get_assignment_subject(assignment)
                         

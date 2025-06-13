@@ -161,20 +161,10 @@ class DataGenerator:
             output_dir = f"{output_dir}_{date_str}"
         
         logger.info(f"Exporting data in {self.export_format} format to {output_dir}...")
+          # Prepare comprehensive student assignments data
+        all_student_assignments = list(self.student_assignments)  # Start with completed assignments
         
-        # Prepare data for export
-        data_objects = {
-            'schools': [s.to_dict() for s in self.schools],
-            'teachers': [t.to_dict() for t in self.teachers],
-            'students': [s.to_dict() for s in self.students],
-            'courses': [c.to_dict() for c in self.courses],
-            'modules': [m.to_dict() for m in self.modules],
-            'assignments': [a.to_dict() for a in self.assignments],
-            'studentAssignments': self.student_assignments,
-            'studentCourses': self.student_courses
-        }
-        
-        # Add mid-semester specific data
+        # Add mid-semester specific data and combine all assignment statuses
         if self.is_mid_semester:
             # Add pending assignments data (assignments available but not submitted)
             pending_assignments = []
@@ -194,28 +184,54 @@ class DataGenerator:
                         # Determine if assignment is available to this student
                         if assignment.assign_date <= student_effective_date:
                             # Assignment is available but not completed
-                            pending_assignments.append({
+                            pending_assignment = {
                                 "id": generate_unique_id("pa_"),
                                 "studentId": student.id,
                                 "assignmentId": assignment.id,
-                                "status": "available",
+                                "courseId": assignment.course_id,
+                                "moduleId": assignment.module_id,
+                                "status": "pending",
                                 "isAvailable": True,
                                 "createdAt": datetime.now(),
                                 "updatedAt": datetime.now()
-                            })
+                            }
+                            pending_assignments.append(pending_assignment)
+                            all_student_assignments.append(pending_assignment)  # Add to main collection
                         else:
                             # Assignment is not yet available
-                            future_assignments.append({
+                            future_assignment = {
                                 "id": generate_unique_id("fa_"),
                                 "studentId": student.id,
                                 "assignmentId": assignment.id,
+                                "courseId": assignment.course_id,
+                                "moduleId": assignment.module_id,
                                 "status": "future",
                                 "isAvailable": False,
                                 "createdAt": datetime.now(),
                                 "updatedAt": datetime.now()
-                            })
-            
-            # Add these to data objects
+                            }
+                            future_assignments.append(future_assignment)
+                            all_student_assignments.append(future_assignment)  # Add to main collection
+          # Debug: Print the size of all_student_assignments
+        logger.info(f"DEBUG: all_student_assignments contains {len(all_student_assignments)} records")
+        if len(all_student_assignments) > 0:
+            logger.info(f"DEBUG: First record: {all_student_assignments[0]}")
+        
+        # Prepare data for export
+        data_objects = {
+            'schools': [s.to_dict() for s in self.schools],
+            'teachers': [t.to_dict() for t in self.teachers],
+            'students': [s.to_dict() for s in self.students],
+            'courses': [c.to_dict() for c in self.courses],
+            'modules': [m.to_dict() for m in self.modules],
+            'assignments': [a.to_dict() for a in self.assignments],
+            'studentAssignments': all_student_assignments,  # Now includes all assignment statuses
+            'studentCourses': self.student_courses
+        }
+        
+        # Add mid-semester specific data as separate collections for backward compatibility
+        if self.is_mid_semester:
+            # Add these as separate collections for specific analysis if needed
             data_objects['pendingAssignments'] = pending_assignments
             data_objects['futureAssignments'] = future_assignments
             

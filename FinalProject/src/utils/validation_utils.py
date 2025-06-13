@@ -367,8 +367,9 @@ def validate_assignment_submission_rates(
         #         f"Late: {late_submissions} ({late_rate:.1%})"
         #     )
                     
-        # Validate submission rate
-        if submission_rate < min_submission_rate:
+        # Validate submission rate status is completed
+        if (submission_rate < min_submission_rate and
+            assignment.get('status') == 'completed'):
             errors.append(
                 f"Assignment {assignment_id} ({name}) has low submission rate: "
                 f"{submission_rate:.1%} (minimum: {min_submission_rate:.1%})"
