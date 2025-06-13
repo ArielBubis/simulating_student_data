@@ -7,12 +7,12 @@ from typing import Dict, List, Any
 
 # School names from the requirements
 SCHOOL_NAMES = [
-    'REVODUCATE', 
-    # 'Ort Bahamas', 
-    # 'Katzir School - Misgav', 
-    # 'Carmel Zevulun Educational Center', 
-    # 'Acre Naval Officers School', 
-    # 'Pardes Hanna Agricultural Organization'
+    'אורט', 
+    'אורט בהמה', 
+    'בית ספר כציר - מסגב', 
+    'מרכז חינוכי כרמל זבולון', 
+    'בית ספר קציני חיל הים עכו', 
+    'אירגון חקלאי פרדס חנה'
 ]
 
 # Mid-semester configuration settings

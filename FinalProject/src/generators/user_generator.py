@@ -3,6 +3,7 @@ User Generator module for creating realistic teacher and student data.
 This module provides classes for generating Teacher and Student objects.
 """
 import random
+import re
 from typing import List, Dict, Any, Optional, Tuple
 from datetime import datetime, timedelta
 from faker import Faker
@@ -13,6 +14,92 @@ from models.student import Student
 from models.school import School
 from generators.id_generator import generate_user_id
 from utils.distribution_utils import generate_correlated_subject_performance
+
+# Hebrew names for realistic Israeli students and teachers (RTL formatted)
+HEBREW_FIRST_NAMES = {
+    'male': [
+        'אריאל', 'דוד', 'יוסף', 'מיכאל', 'דניאל', 'אבירם', 'רון', 'עמית', 'תום', 'נועם',
+        'יונתן', 'אלעד', 'איתי', 'שי', 'גיל', 'עומר', 'אורי', 'יובל', 'נתן', 'עידו',
+        'ליאור', 'אוהד', 'אלון', 'טל', 'רועי', 'אורן', 'יאיר', 'בן', 'משה', 'אחמד'
+    ],
+    'female': [
+        'שרה', 'רבקה', 'רחל', 'לאה', 'מירב', 'נועה', 'שירה', 'תמר', 'רונית', 'דנה',
+        'מיכל', 'יעל', 'ליאור', 'מעיין', 'שני', 'רותם', 'אוריה', 'גלי', 'הדר', 'ענבל',
+        'אילנה', 'נעמה', 'עדי', 'ליה', 'אביבה', 'זהר', 'ארבל', 'מור', 'אילה', 'פאטמה'
+    ]
+}
+
+HEBREW_LAST_NAMES = [
+    'כהן', 'לוי', 'מזרחי', 'פרץ', 'ביטון', 'דהן', 'אברמוביץ', 'פרידמן', 'כהן', 'אמיר',
+    'שמואל', 'רוזנברג', 'גולדשטיין', 'ישראלי', 'עמר', 'אלכסנדר', 'חדד', 'עזרא', 'שמעון', 'יעקב',
+    'אשכנזי', 'יוסף', 'בן דוד', 'אליאס', 'נחמן', 'גרין', 'בראון', 'שוורץ', 'ציון', 'סולומון'
+]
+
+
+def generate_hebrew_name() -> Tuple[str, str]:
+    """Generate a Hebrew first and last name with proper RTL formatting."""
+    gender = random.choice(['male', 'female'])
+    first_name = random.choice(HEBREW_FIRST_NAMES[gender])
+    last_name = random.choice(HEBREW_LAST_NAMES)
+    return first_name, last_name
+
+
+def format_hebrew_full_name(first_name: str, last_name: str) -> str:
+    """
+    Format Hebrew names properly for display.
+    In Hebrew, the format is typically: first_name last_name
+    """
+    return f"{first_name} {last_name}"
+
+
+def create_english_email_from_hebrew_name(first_name: str, last_name: str, school_name: str, user_type: str = "student") -> str:
+    """
+    Create an English email from Hebrew names to avoid Hebrew characters in emails.
+    
+    Args:
+        first_name (str): Hebrew first name
+        last_name (str): Hebrew last name  
+        school_name (str): School name (might be Hebrew)
+        user_type (str): 'student' or 'teacher'
+    
+    Returns:
+        str: English email address
+    """
+    # Hebrew to English transliteration mapping
+    transliteration_map = {
+        'א': 'a', 'ב': 'b', 'ג': 'g', 'ד': 'd', 'ה': 'h', 'ו': 'v', 'ז': 'z', 'ח': 'ch',
+        'ט': 't', 'י': 'y', 'כ': 'k', 'ך': 'k', 'ל': 'l', 'מ': 'm', 'ם': 'm', 'ן': 'n',
+        'נ': 'n', 'ס': 's', 'ע': 'a', 'פ': 'p', 'ף': 'f', 'צ': 'tz', 'ץ': 'tz', 'ק': 'k',
+        'ר': 'r', 'ש': 'sh', 'ת': 't'
+    }
+    
+    def transliterate_hebrew(text: str) -> str:
+        """Transliterate Hebrew text to English."""
+        result = ""
+        for char in text:
+            if char in transliteration_map:
+                result += transliteration_map[char]
+            else:
+                result += char
+        return result
+    
+    # Transliterate names
+    eng_first = transliterate_hebrew(first_name).lower()
+    eng_last = transliterate_hebrew(last_name).lower()
+    
+    # Clean school name for email domain
+    school_domain = re.sub(r'[^\w]', '', school_name.lower())
+    school_domain = transliterate_hebrew(school_domain)
+    
+    if user_type == "student":
+        # Students get username + random number format
+        username = f"{eng_first}{random.randint(1, 999)}"
+        email = f"{username}@student.{school_domain}.edu"
+    else:
+        # Teachers get formal first.last format
+        email = f"{eng_first}.{eng_last}@{school_domain}.edu"
+    
+    return email
 
 
 class UserGenerator:
@@ -50,8 +137,7 @@ class TeacherGenerator(UserGenerator):
         
         # Common teacher titles
         self.titles = ["Dr.", "Prof.", "Mr.", "Mrs.", "Ms."]
-        
-        # Common departments
+          # Common departments
         self.departments = [
             "Mathematics", "Science", "Humanities", "Languages", 
             "Arts", "Physical Education", "Computer Science", 
@@ -67,17 +153,15 @@ class TeacherGenerator(UserGenerator):
             
         Returns:
             Teacher: A newly generated Teacher instance
-        """
-        # Generate a unique ID
+        """        # Generate a unique ID
         teacher_id = generate_user_id()
         
-        # Generate basic info
-        first_name = self.faker.first_name()
-        last_name = self.faker.last_name()
-        name = f"{first_name} {last_name}"
+        # Generate Hebrew names
+        first_name, last_name = generate_hebrew_name()
+        name = format_hebrew_full_name(first_name, last_name)
         
-        # Create work email (more formal than student emails)
-        email = f"{first_name.lower()}.{last_name.lower()}@{school.name.lower().replace(' ', '')}.edu"
+        # Create work email (English to avoid Hebrew in emails)
+        email = create_english_email_from_hebrew_name(first_name, last_name, school.name, "teacher")
         
         # Generate phone
         phone = self.faker.phone_number()
@@ -187,8 +271,7 @@ class StudentGenerator(UserGenerator):
         
         # Load student performance profiles from settings
         self.performance_profiles = USER_SETTINGS.get('student_performance_profiles', [])
-        
-        # Subject correlation information from settings
+          # Subject correlation information from settings
         self.subject_correlation = USER_SETTINGS.get('subject_correlation', {})
     
     def generate_student(self, school: School) -> Student:
@@ -200,18 +283,15 @@ class StudentGenerator(UserGenerator):
             
         Returns:
             Student: A newly generated Student instance
-        """
-        # Generate a unique ID
+        """        # Generate a unique ID
         student_id = generate_user_id()
         
-        # Generate basic info
-        first_name = self.faker.first_name()
-        last_name = self.faker.last_name()
-        name = f"{first_name} {last_name}"
+        # Generate Hebrew names
+        first_name, last_name = generate_hebrew_name()
+        name = format_hebrew_full_name(first_name, last_name)
         
-        # Create student email (often just username with school domain)
-        username = f"{first_name.lower()}{random.randint(1, 999)}"
-        email = f"{username}@student.{school.name.lower().replace(' ', '')}.edu"
+        # Create student email (English to avoid Hebrew in emails)
+        email = create_english_email_from_hebrew_name(first_name, last_name, school.name, "student")
         
         # Generate phone
         phone = self.faker.phone_number()

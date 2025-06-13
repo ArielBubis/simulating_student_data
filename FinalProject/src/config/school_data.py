@@ -6,73 +6,71 @@ in the data generation process.
 from typing import Dict, List, Any
 
 # School data with expanded information about each school
-SCHOOLS = [
-    {
-        "name": "REVODUCATE",
+SCHOOLS = [    {
+        "name": "אורט",
         "type": "General Education",
-        "location": "Tel Aviv",
+        "location": "תל אביב",
         "founding_year": 2010,
         "student_capacity": 950,
         "specialization": "Technology and Innovation",
         "website": "www.revoducate.edu",
         "ranking": 4.6,  # Out of 5
         "course_focus": ["Computer Science", "Mathematics", "Science", "Foreign Language"]
+    },    {
+        "name": "אורט בהמה",
+        "type": "Technical",
+        "location": "חיפה",
+        "founding_year": 1980,
+        "student_capacity": 1200,
+        "specialization": "Engineering and Technical Skills",
+        "website": "www.ort-bahamas.edu",
+        "ranking": 4.2,
+        "course_focus": ["Computer Science", "Mathematics", "Science", "Art"]
     },
-    # {
-    #     "name": "Ort",
-    #     "type": "Technical",
-    #     "location": "Haifa",
-    #     "founding_year": 1980,
-    #     "student_capacity": 1200,
-    #     "specialization": "Engineering and Technical Skills",
-    #     "website": "www.ort-bahamas.edu",
-    #     "ranking": 4.2,
-    #     "course_focus": ["Computer Science", "Mathematics", "Science", "Art"]
-    # },
-    # {
-    #     "name": "Katzir School - Misgav",
-    #     "type": "General Education",
-    #     "location": "Misgav",
-    #     "founding_year": 1995,
-    #     "student_capacity": 800,
-    #     "specialization": "Liberal Arts and Sciences",
-    #     "website": "www.katzir-misgav.edu",
-    #     "ranking": 4.4,
-    #     "course_focus": ["Literature", "History", "Social Studies", "Science"]
-    # },
-    # {
-    #     "name": "Carmel Zevulun Educational Center",
-    #     "type": "Regional",
-    #     "location": "Zevulun Valley",
-    #     "founding_year": 1970,
-    #     "student_capacity": 1000,
-    #     "specialization": "Environmental Studies and Agriculture",
-    #     "website": "www.carmel-zevulun.edu",
-    #     "ranking": 3.9,
-    #     "course_focus": ["Science", "Social Studies", "Physical Education", "Art"]
-    # },
-    # {
-    #     "name": "Acre Naval Officers School",
-    #     "type": "Vocational",
-    #     "location": "Acre",
-    #     "founding_year": 1938,
-    #     "student_capacity": 600,
-    #     "specialization": "Maritime Studies and Navigation",
-    #     "website": "www.naval-acre.edu",
-    #     "ranking": 4.1,
-    #     "course_focus": ["Mathematics", "Science", "Physical Education", "History"]
-    # },
-    # {
-    #     "name": "Pardes Hanna Agricultural Organization",
-    #     "type": "Agricultural",
-    #     "location": "Pardes Hanna-Karkur",
-    #     "founding_year": 1952,
-    #     "student_capacity": 850,
-    #     "specialization": "Agriculture and Environmental Science",
-    #     "website": "www.ort-agricultural.edu",
-    #     "ranking": 4.0,
-    #     "course_focus": ["Science", "Computer Science", "Social Studies", "Art"]
-    # }
+    {
+        "name": "בית ספר כציר - מסגב",
+        "type": "General Education",
+        "location": "מסגב",
+        "founding_year": 1995,
+        "student_capacity": 800,
+        "specialization": "Liberal Arts and Sciences",
+        "website": "www.katzir-misgav.edu",
+        "ranking": 4.4,
+        "course_focus": ["Literature", "History", "Social Studies", "Science"]
+    },
+    {
+        "name": "מרכז חינוכי כרמל זבולון",
+        "type": "Regional",
+        "location": "עמק זבולון",
+        "founding_year": 1970,
+        "student_capacity": 1000,
+        "specialization": "Environmental Studies and Agriculture",
+        "website": "www.carmel-zevulun.edu",
+        "ranking": 3.9,
+        "course_focus": ["Science", "Social Studies", "Physical Education", "Art"]
+    },
+    {
+        "name": "בית ספר קציני חיל הים עכו",
+        "type": "Vocational",
+        "location": "עכו",
+        "founding_year": 1938,
+        "student_capacity": 600,
+        "specialization": "Maritime Studies and Navigation",
+        "website": "www.naval-acre.edu",
+        "ranking": 4.1,
+        "course_focus": ["Mathematics", "Science", "Physical Education", "History"]
+    },
+    {
+        "name": "אירגון חקלאי פרדס חנה",
+        "type": "Agricultural",
+        "location": "פרדס חנה-כרכור",
+        "founding_year": 1952,
+        "student_capacity": 850,
+        "specialization": "Agriculture and Environmental Science",
+        "website": "www.ort-agricultural.edu",
+        "ranking": 4.0,
+        "course_focus": ["Science", "Computer Science", "Social Studies", "Art"]
+    }
 ]
 # Course types and specializations that could be offered at these schools
 COURSE_SPECIALIZATIONS = {
@@ -91,8 +89,7 @@ COURSE_SPECIALIZATIONS = {
         "Robotics",
         "Technical Drawing",
         "Mechanical Systems"
-    ],
-    "Liberal Arts and Sciences": [
+    ],    "Liberal Arts and Sciences": [
         "Literature Analysis",
         "World History",
         "Philosophy",
@@ -100,30 +97,30 @@ COURSE_SPECIALIZATIONS = {
         "Creative Writing",
         "Sociology"
     ],
-    # "Environmental Studies and Agriculture": [
-    #     "Environmental Science",
-    #     "Sustainable Agriculture",
-    #     "Ecology",
-    #     "Natural Resource Management",
-    #     "Climate Studies",
-    #     "Conservation Biology"
-    # ],
-    # "Maritime Studies and Navigation": [
-    #     "Maritime Navigation",
-    #     "Marine Biology",
-    #     "Naval Architecture",
-    #     "Oceanography",
-    #     "Seamanship",
-    #     "Maritime Law"
-    # ],
-    # "Agriculture and Environmental Science": [
-    #     "Agricultural Science",
-    #     "Horticulture",
-    #     "Soil Science",
-    #     "Agricultural Economics",
-    #     "Animal Science",
-    #     "Sustainable Farming"
-    # ]
+    "Environmental Studies and Agriculture": [
+        "Environmental Science",
+        "Sustainable Agriculture",
+        "Ecology",
+        "Natural Resource Management",
+        "Climate Studies",
+        "Conservation Biology"
+    ],
+    "Maritime Studies and Navigation": [
+        "Maritime Navigation",
+        "Marine Biology",
+        "Naval Architecture",
+        "Oceanography",
+        "Seamanship",
+        "Maritime Law"
+    ],
+    "Agriculture and Environmental Science": [
+        "Agricultural Science",
+        "Horticulture",
+        "Soil Science",
+        "Agricultural Economics",
+        "Animal Science",
+        "Sustainable Farming"
+    ]
 }
 
 # Map to help generate appropriate course names for each school based on their focus
