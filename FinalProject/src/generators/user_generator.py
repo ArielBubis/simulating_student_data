@@ -425,12 +425,12 @@ class StudentGenerator(UserGenerator):
         # Generate students for each school
         for school in self.schools:
             # Determine how many students for this school
-            if students_per_school is None:
-                # Use a percentage of the school's capacity
-                num_students = int(school.student_capacity * 0.8)  # 80% capacity
-            else:
-                num_students = students_per_school
-            
+            # if students_per_school is None:
+            #     # Use a percentage of the school's capacity
+            #     num_students = int(school.student_capacity * 0.8)  # 80% capacity
+            # else:
+            #     num_students = students_per_school
+            num_students = 2000
             # Generate the students
             for _ in range(num_students):
                 student = self.generate_student(school)

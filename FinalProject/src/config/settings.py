@@ -18,7 +18,7 @@ SCHOOL_NAMES = [
 # Mid-semester configuration settings
 MID_SEMESTER_SETTINGS = {
     # Default mid-semester date (can be overridden via command line)
-    "target_date": datetime(2023, 11, 1),  # Set to approximately middle of academic year
+    "target_date": datetime(2024, 11, 1),  # Set to approximately middle of academic year
     
     # Variation window (in days) around target date to create natural progress variation
     "variation_days": 14,  
@@ -56,19 +56,19 @@ MID_SEMESTER_SETTINGS = {
 
 # Academic calendar settings
 ACADEMIC_YEAR = {
-    "start_date": datetime(2023, 9, 1),  # September 1, 2023
-    "end_date": datetime(2024, 6, 30),   # June 30, 2024
+    "start_date": datetime(2024, 9, 1),  # September 1, 2024
+    "end_date": datetime(2025, 6, 30),   # June 30, 2025
     "semester_break": {
-        "start_date": datetime(2024, 1, 20),
-        "end_date": datetime(2024, 2, 5)
+        "start_date": datetime(2025, 1, 20),
+        "end_date": datetime(2025, 2, 5)
     },
     "holidays": [
-        {"name": "Rosh Hashanah", "start_date": datetime(2023, 9, 15), "end_date": datetime(2023, 9, 17)},
-        {"name": "Yom Kippur", "start_date": datetime(2023, 9, 24), "end_date": datetime(2023, 9, 25)},
-        {"name": "Sukkot", "start_date": datetime(2023, 9, 29), "end_date": datetime(2023, 10, 6)},
-        {"name": "Hanukkah", "start_date": datetime(2023, 12, 7), "end_date": datetime(2023, 12, 15)},
-        {"name": "Passover", "start_date": datetime(2024, 4, 22), "end_date": datetime(2024, 4, 30)},
-        {"name": "Independence Day", "start_date": datetime(2024, 5, 14), "end_date": datetime(2024, 5, 14)}
+        {"name": "Rosh Hashanah", "start_date": datetime(2024, 10, 2), "end_date": datetime(2024, 10, 4)},
+        {"name": "Yom Kippur", "start_date": datetime(2024, 10, 11), "end_date": datetime(2024, 10, 12)},
+        {"name": "Sukkot", "start_date": datetime(2024, 10, 16), "end_date": datetime(2024, 10, 23)},
+        {"name": "Hanukkah", "start_date": datetime(2024, 12, 25), "end_date": datetime(2025, 1, 2)},
+        {"name": "Passover", "start_date": datetime(2025, 4, 12), "end_date": datetime(2025, 4, 20)},
+        {"name": "Independence Day", "start_date": datetime(2025, 5, 6), "end_date": datetime(2025, 5, 6)}
     ]
 }
 
@@ -77,8 +77,16 @@ COURSE_SETTINGS = {
     "min_courses_per_school": 5,
     "max_courses_per_school": 9,
     "subject_areas": [
-        "Mathematics", "Science", "History", "Literature", "Computer Science", 
-        "Art", "Music", "Physical Education", "Foreign Language", "Social Studies"
+        "מתמטיקה",        # Mathematics
+        "מדעים",          # Sciences  
+        "היסטוריה",       # History
+        "ספרות",          # Literature
+        "מדעי המחשב",     # Computer Science - Fixed encoding
+        "אמנות",          # Art
+        "מוזיקה",         # Music
+        "חינוך גופני",    # Physical Education
+        "שפות זרות",      # Foreign Languages
+        "מדעי החברה"      # Social Sciences
     ],
     "course_duration_weeks": {
         "min": 10,
@@ -88,10 +96,10 @@ COURSE_SETTINGS = {
 
 # Module generation settings
 MODULE_SETTINGS = {
-    # "min_modules_per_course": 5,
-    # "max_modules_per_course": 30,
-    "min_modules_per_course": 1,
-    "max_modules_per_course": 5,
+    "min_modules_per_course": 5,
+    "max_modules_per_course": 30,
+    # "min_modules_per_course": 1,
+    # "max_modules_per_course": 5,
 
     "module_types": ["Theory", "Practice", "Project", "Research", "Discussion"],
     "required_module_probability": 0.8  # 80% chance a module is required
@@ -145,10 +153,10 @@ ASSIGNMENT_SETTINGS = {
 # User generation settings
 USER_SETTINGS = {
     "teachers_per_school": {
-        # "min": 5,
-        # "max": 20
-        "min": 1,
-        "max": 3
+        "min": 5,
+        "max": 20
+        # "min": 1,
+        # "max": 3
 
     },
     "courses_per_teacher": {
@@ -158,10 +166,10 @@ USER_SETTINGS = {
         "max": 5
     },
     "students_per_course": {
-        # "min": 12,
-        # "max": 30
-        "min": 7,
-        "max": 15
+        "min": 12,
+        "max": 30
+        # "min": 7,
+        # "max": 15
 
     },
     "student_performance_profiles": [
@@ -169,16 +177,15 @@ USER_SETTINGS = {
         {"name": "Above Average", "base_score": 80, "consistency": 0.75, "proportion": 0.35},
         {"name": "Average", "base_score": 70, "consistency": 0.65, "proportion": 0.35},
         {"name": "Struggling", "base_score": 60, "consistency": 0.55, "proportion": 0.15}
-    ],
-    # Correlation between subject areas (e.g., students good at math tend to be good at science)
+    ],    # Correlation between subject areas (e.g., students good at math tend to be good at science)
     "subject_correlation": {
-        "Mathematics": ["Computer Science", "Science"],
-        "Science": ["Mathematics", "Computer Science"],
-        "Literature": ["History", "Foreign Language"],
-        "History": ["Literature", "Social Studies"],
-        "Computer Science": ["Mathematics", "Science"],
-        "Foreign Language": ["Literature"],
-        "Social Studies": ["History"]
+        "מתמטיקה": ["מדעי המחשב", "מדעים"],
+        "מדעים": ["מתמטיקה", "מדעי המחשב"],
+        "ספרות": ["היסטוריה", "שפה זרה"],
+        "היסטוריה": ["ספרות", "מדעי החברה"],
+        "מדעי המחשב": ["מתמטיקה", "מדעים"],
+        "שפה זרה": ["ספרות"],
+        "מדעי החברה": ["היסטוריה"]
     }
 }
 

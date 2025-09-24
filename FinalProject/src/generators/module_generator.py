@@ -78,45 +78,81 @@ class ModuleGenerator:
         # Generic descriptions based on module type
         descriptions = {
             "Theory": [
-                "This module covers the theoretical foundations of the subject.",
-                "Students will learn the core concepts and principles.",
-                "Explore the fundamental theories that underpin this subject area."
+                "מודול זה עוסק ביסודות התיאורטיים של הנושא.",
+                "התלמידים ילמדו את המושגים והעקרונות המרכזיים.",
+                "חקור את התיאוריות הבסיסיות העומדות בבסיס תחום זה."
             ],
             "Practice": [
-                "Apply theoretical knowledge through practical exercises and problems.",
-                "This hands-on module focuses on developing practical skills.",
-                "Practice core techniques through guided exercises and activities."
+                "יישם ידע תיאורטי באמצעות תרגילים ובעיות מעשיות.",
+                "מודול מעשי זה מתמקד בפיתוח כישורים יישומיים.",
+                "תרגל טכניקות ליבה דרך תרגילים מודרכים ופעילויות."
             ],
             "Project": [
-                "Develop and complete a project that demonstrates mastery of key concepts.",
-                "This project-based module allows application of learned skills.",
-                "Work on a comprehensive project to solidify understanding."
+                "פַּתֵּחַ והשלם פרויקט שמדגים שליטה במושגים המרכזיים.",
+                "מודול מבוסס-פרויקט זה מאפשר יישום של כישורים שנרכשו.",
+                "עבוד על פרויקט מקיף כדי לחזק את ההבנה."
             ],
             "Research": [
-                "Conduct research on topics related to the course material.",
-                "Explore advanced concepts through guided research activities.",
-                "This module focuses on research methodologies and applications."
+                "בצע מחקר בנושאים הקשורים לחומר הקורס.",
+                "חקור מושגים מתקדמים דרך פעילויות מחקר מונחות.",
+                "מודול זה מתמקד בשיטות מחקר וביישומן."
             ],
             "Discussion": [
-                "Engage in critical discussions about important topics in the field.",
-                "This discussion-based module promotes critical thinking and analysis.",
-                "Participate in structured discussions to deepen understanding."
+                "השתתף בדיונים מעמיקים בנושאים חשובים בתחום.",
+                "מודול מבוסס-דיון זה מקדם חשיבה ביקורתית וניתוח.",
+                "קח חלק בדיונים מובנים להעמקת ההבנה."
             ]
         }
-        
-        # Default if module type not in predefined list
+
+        # ברירת מחדל אם סוג המודול אינו ברשימה
         default_descriptions = [
-            "This module provides essential knowledge and skills in the subject area.",
-            "Learn key concepts and their applications in this comprehensive module.",
-            "Develop understanding and proficiency in important subject matter."
+            "מודול זה מספק ידע וכישורים חיוניים בתחום הנושא.",
+            "למד מושגים מרכזיים ויישומיהם במודול מקיף זה.",
+            "פתח הבנה ושליטה בחומר חשוב."
         ]
+
+
+        # descriptions = {
+        #     "Theory": [
+        #         "This module covers the theoretical foundations of the subject.",
+        #         "Students will learn the core concepts and principles.",
+        #         "Explore the fundamental theories that underpin this subject area."
+        #     ],
+        #     "Practice": [
+        #         "Apply theoretical knowledge through practical exercises and problems.",
+        #         "This hands-on module focuses on developing practical skills.",
+        #         "Practice core techniques through guided exercises and activities."
+        #     ],
+        #     "Project": [
+        #         "Develop and complete a project that demonstrates mastery of key concepts.",
+        #         "This project-based module allows application of learned skills.",
+        #         "Work on a comprehensive project to solidify understanding."
+        #     ],
+        #     "Research": [
+        #         "Conduct research on topics related to the course material.",
+        #         "Explore advanced concepts through guided research activities.",
+        #         "This module focuses on research methodologies and applications."
+        #     ],
+        #     "Discussion": [
+        #         "Engage in critical discussions about important topics in the field.",
+        #         "This discussion-based module promotes critical thinking and analysis.",
+        #         "Participate in structured discussions to deepen understanding."
+        #     ]
+        # }
+        
+        # # Default if module type not in predefined list
+        # default_descriptions = [
+        #     "This module provides essential knowledge and skills in the subject area.",
+        #     "Learn key concepts and their applications in this comprehensive module.",
+        #     "Develop understanding and proficiency in important subject matter."
+        # ]
         
         # Get appropriate descriptions based on module type
         type_descriptions = descriptions.get(module_type, default_descriptions)
         selected_description = random.choice(type_descriptions)
         
         # Add more specific information
-        return f"{selected_description} Module content relates to {module_name.split(':')[-1].strip() if ':' in module_name else module_name}."
+        return f"{selected_description} בשיעור הזה נעבור על: {module_name.split(':')[-1].strip() if ':' in module_name else module_name}."
     
     def generate_modules_for_course(self, course: Course) -> List[Module]:
         """

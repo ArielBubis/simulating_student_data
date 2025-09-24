@@ -126,8 +126,8 @@ class CourseGenerator:
             name = random.choice(available_courses)
         
         # Generate description
-        description = f"This course covers the fundamentals of {name}. Students will learn key concepts and practical applications."
-        
+        # description = f"This course covers the fundamentals of {name}. Students will learn key concepts and practical applications."
+        description = f"קורס זה עוסק ביסודות של {name}. התלמידים ילמדו מושגים מרכזיים ויישומים מעשיים."
         # Generate course dates
         start_date, end_date = generate_course_dates()
         

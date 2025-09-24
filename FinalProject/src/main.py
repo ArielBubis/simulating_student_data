@@ -93,7 +93,7 @@ class DataGenerator:
     def __init__(self, 
                  upload_to_firebase: bool = False, 
                  export_format: str = 'none', 
-                 output_dir: str = './output',
+                 output_dir: str = './src/output',
                  is_mid_semester: bool = False,
                  cutoff_date: Optional[datetime] = None,
                  variation_days: Optional[int] = None):
@@ -607,8 +607,8 @@ def parse_arguments():
     parser.add_argument(
         '--output-dir',
         type=str,
-        default='./output',
-        help='Directory to save exported data (default: ./output)'
+        default='./src/output',
+        help='Directory to save exported data (default: ./src/output)'
     )
 
     # mid-semester related arguments

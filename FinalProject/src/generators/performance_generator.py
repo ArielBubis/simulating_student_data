@@ -645,10 +645,11 @@ class PerformanceGenerator:
         Returns:
             Optional[Dict[str, Any]]: Generated student-assignment data or None if not completed
         """
+        subject_area = self._get_assignment_subject(assignment)
+
         # Mid-semester logic: determine if this assignment would be completed
         if self.is_mid_semester:
             # Get the subject area for this assignment
-            subject_area = self._get_assignment_subject(assignment)
             
             # Determine if assignment is available to this student
             if not self._is_assignment_available(assignment, student):

@@ -112,39 +112,70 @@ class AssignmentGenerator:
         # Generic descriptions based on assignment type
         descriptions = {
             "Quiz": [
-                "A short quiz to test your understanding of key concepts.",
-                "This quiz covers the essential material from recent lessons.",
-                "Complete this quiz to demonstrate your knowledge of basic concepts."
+                "מבחן קצר לבדיקת הבנתך של מושגים מרכזיים.",
+                "המבחן כולל את החומר המרכזי מהשיעורים האחרונים.",
+                "השלים את המבחן הזה כדי להפגין את ידיעותיך במושגים בסיסיים."
             ],
             "Exam": [
-                "A comprehensive exam covering all major topics in this module.",
-                "This exam assesses your overall understanding of the material.",
-                "Demonstrate your mastery of the subject through this detailed examination."
+                "מבחן מקיף הכולל את כל הנושאים המרכזיים במודול זה.",
+                "מבחן זה בודק את הבנתך הכוללת של החומר.",
+                "הפגן שליטה בנושא באמצעות מבחן מעמיק זה."
             ],
             "Homework": [
-                "Complete these exercises to reinforce your understanding.",
-                "This homework assignment provides practice with key concepts.",
-                "Apply what you've learned by completing these problems."
+                "השלם את התרגילים הללו כדי לחזק את הבנתך.",
+                "משימת הבית הזו מספקת תרגול על מושגים מרכזיים.",
+                "השתמש במה שלמדת כדי לפתור את הבעיות הללו."
             ],
             "Project": [
-                "Develop a project that demonstrates your understanding of the material.",
-                "This project allows you to apply concepts in a practical context.",
-                "Create a comprehensive solution that showcases your skills."
+                "פַּתֵּחַ פרויקט שמדגים את הבנתך של החומר הנלמד.",
+                "פרויקט זה מאפשר יישום מעשי של המושגים שנלמדו.",
+                "צור פתרון מקיף שמציג את כישוריך."
             ],
             # "Participation": [
-            #     "Contribute to class discussions and activities.",
-            #     "Your active participation in class activities will be assessed.",
-            #     "Engage with the material through discussion and collaboration."
+            #     "השתתף בדיונים ופעילויות בכיתה.",
+            #     "השתתפותך הפעילה בפעילויות תיבחן.",
+            #     "התחבר לחומר באמצעות דיון ושיתוף פעולה."
             # ]
         }
+        # descriptions = {
+        #     "Quiz": [
+        #         "A short quiz to test your understanding of key concepts.",
+        #         "This quiz covers the essential material from recent lessons.",
+        #         "Complete this quiz to demonstrate your knowledge of basic concepts."
+        #     ],
+        #     "Exam": [
+        #         "A comprehensive exam covering all major topics in this module.",
+        #         "This exam assesses your overall understanding of the material.",
+        #         "Demonstrate your mastery of the subject through this detailed examination."
+        #     ],
+        #     "Homework": [
+        #         "Complete these exercises to reinforce your understanding.",
+        #         "This homework assignment provides practice with key concepts.",
+        #         "Apply what you've learned by completing these problems."
+        #     ],
+        #     "Project": [
+        #         "Develop a project that demonstrates your understanding of the material.",
+        #         "This project allows you to apply concepts in a practical context.",
+        #         "Create a comprehensive solution that showcases your skills."
+        #     ],
+        #     # "Participation": [
+        #     #     "Contribute to class discussions and activities.",
+        #     #     "Your active participation in class activities will be assessed.",
+        #     #     "Engage with the material through discussion and collaboration."
+        #     # ]
+        # }
         
-        # Default if assignment type not in predefined list
+        # # Default if assignment type not in predefined list
+        # default_descriptions = [
+        #     "Complete this assignment to demonstrate your understanding.",
+        #     "This assignment assesses your knowledge of key concepts.",
+        #     "Show your mastery of the material through this assignment."
+        # ]
         default_descriptions = [
-            "Complete this assignment to demonstrate your understanding.",
-            "This assignment assesses your knowledge of key concepts.",
-            "Show your mastery of the material through this assignment."
+            "השלם משימה זו כדי להפגין את הבנתך.",
+            "משימה זו בוחנת את הידע שלך במושגים המרכזיים.",
+            "הראה שליטה בחומר באמצעות משימה זו."
         ]
-        
         # Get appropriate descriptions based on assignment type
         type_descriptions = descriptions.get(assignment_type, default_descriptions)
         selected_description = random.choice(type_descriptions)
