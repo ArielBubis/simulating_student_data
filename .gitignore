@@ -18,3 +18,5 @@ venv.bak/
 FinalProject/src/output/
 src/output/
 *.csv
+packagejson_dup.rar
+output/
