@@ -95,33 +95,80 @@ python main.py [OPTIONS]
 
 #### Available Options:
 
-- `--upload`: Upload generated data to Firebase
-- `--export {json,csv,both,none}`: Export format (default: none)
-- `--output-dir PATH`: Output directory (default: ./src/output)
-- `--mid-semester`: Generate mid-semester data instead of full-semester
-- `--cutoff-date YYYY-MM-DD`: Custom mid-semester cutoff date
-- `--variation-days N`: Variation window in days around cutoff date
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `--upload` | flag | False | Upload generated data to Firebase |
+| `--export` | choice | `none` | Export format: `json`, `csv`, `both`, or `none` |
+| `--output-dir` | path | `./src/output` | Directory to save exported data |
+| `--mid-semester` | flag | False | Generate mid-semester data instead of full-semester |
+| `--cutoff-date` | date | `2024-11-01` | Custom mid-semester cutoff date (YYYY-MM-DD format) |
+| `--variation-days` | integer | `14` | Variation window in days around cutoff date |
+
+#### Detailed Option Descriptions:
+
+**Export Options (`--export`)**:
+- `none`: No files exported (data generation only)
+- `json`: Export all collections as JSON files
+- `csv`: Export all collections as CSV files  
+- `both`: Export both JSON and CSV formats
+
+**Output Directory (`--output-dir`)**:
+- Specifies where generated files will be saved
+- Creates subdirectories based on generation type:
+  - `full_semester/` for complete semester data
+  - `mid_semester_YYYYMMDD/` for mid-semester data with date
+  - `mid_semester_analysis_YYYYMMDD/` for specialized analysis files
+
+**Mid-Semester Options**:
+- `--mid-semester`: Enables mid-semester mode with realistic completion rates
+- `--cutoff-date`: Sets the reference date for determining completed vs pending assignments
+- `--variation-days`: Creates natural variation in student progress (±N days from cutoff)
+
+**Firebase Integration (`--upload`)**:
+- Requires `src/config/admin-sdk.json` with Firebase credentials
+- Uploads data to Firestore collections
+- Can be combined with export options
 
 ### Usage Examples
 
-1. **Generate and export to JSON:**
+1. **Basic generation with JSON export:**
    ```bash
    python main.py --export json
    ```
 
-2. **Generate mid-semester data:**
+2. **Generate to custom directory:**
+   ```bash
+   python main.py --export csv --output-dir ./data/generated
+   ```
+
+3. **Mid-semester data with both formats:**
    ```bash
    python main.py --mid-semester --export both
    ```
 
-3. **Custom mid-semester date:**
+4. **Custom mid-semester configuration:**
    ```bash
-   python main.py --mid-semester --cutoff-date 2024-11-15 --variation-days 10 --export csv
+   python main.py --mid-semester --cutoff-date 2024-11-15 --variation-days 10 --export json
    ```
 
-4. **Upload to Firebase:**
+5. **Upload to Firebase without local files:**
    ```bash
-   python main.py --upload --export json
+   python main.py --upload
+   ```
+
+6. **Complete pipeline with all options:**
+   ```bash
+   python main.py --mid-semester --cutoff-date 2024-12-01 --variation-days 7 --export both --output-dir ./results --upload
+   ```
+
+7. **Full semester data with CSV export:**
+   ```bash
+   python main.py --export csv --output-dir ./semester_data
+   ```
+
+8. **Mid-semester analysis for specific date:**
+   ```bash
+   python main.py --mid-semester --cutoff-date 2024-10-15 --variation-days 5 --export both --output-dir ./mid_term_analysis
    ```
 
 ## Data Generation Pipeline
@@ -336,41 +383,212 @@ MID_SEMESTER_SETTINGS = {
 
 ### File Structure
 
-The system generates organized output directories:
+The system generates organized output directories based on your command-line options:
+
+#### Default Output Structure (`--output-dir ./src/output`):
 
 ```
 output/
-├── full_semester/               # Complete semester data
-│   ├── csv/
-│   │   ├── students.csv
-│   │   ├── courses.csv
-│   │   ├── assignments.csv
-│   │   ├── studentAssignments.csv
-│   │   └── ...
-│   └── json/
+├── full_semester/               # When running without --mid-semester
+│   ├── csv/                     # When using --export csv or --export both
+│   │   ├── schools.csv          # School information
+│   │   ├── teachers.csv         # Teacher profiles
+│   │   ├── students.csv         # Student information
+│   │   ├── courses.csv          # Course details
+│   │   ├── modules.csv          # Module information
+│   │   ├── assignments.csv      # Assignment specifications
+│   │   ├── studentAssignments.csv # All student submissions
+│   │   ├── studentCourses.csv   # Course enrollment and grades
+│   │   └── metadata.csv         # Generation metadata
+│   └── json/                    # When using --export json or --export both
+│       ├── schools.json         # Same data in JSON format
+│       ├── teachers.json
 │       ├── students.json
 │       ├── courses.json
+│       ├── modules.json
+│       ├── assignments.json
+│       ├── studentAssignments.json
+│       ├── studentCourses.json
+│       └── metadata.json
+├── mid_semester_20241101/       # When using --mid-semester (date from --cutoff-date)
+│   ├── csv/                     # Same structure as full_semester
+│   │   ├── schools.csv
+│   │   ├── teachers.csv
+│   │   ├── students.csv
+│   │   ├── courses.csv
+│   │   ├── modules.csv
+│   │   ├── assignments.csv
+│   │   ├── studentAssignments.csv # Includes completed, pending, and future assignments
+│   │   ├── studentCourses.csv
+│   │   ├── pendingAssignments.csv # Mid-semester specific: available but not submitted
+│   │   ├── futureAssignments.csv  # Mid-semester specific: not yet available
+│   │   ├── midSemesterReport.csv  # Progress summary
+│   │   └── metadata.csv
+│   └── json/                    # Same collections in JSON format
 │       └── ...
-├── mid_semester_20241101/       # Mid-semester data with date
-│   ├── csv/
-│   └── json/
-└── mid_semester_analysis_20241101/  # Specialized analysis files
-    ├── status/
-    └── summary/
+└── mid_semester_analysis_20241101/ # Specialized analysis files (mid-semester only)
+    ├── status/                  # Assignment status breakdown
+    │   ├── completion_by_student.csv
+    │   ├── completion_by_course.csv
+    │   └── status_summary.json
+    └── summary/                 # Progress summaries
+        ├── student_progress.csv
+        ├── course_progress.csv
+        └── overall_statistics.json
 ```
+
+#### Custom Output Structure (`--output-dir ./custom/path`):
+
+When you specify a custom output directory, the same structure is created at your specified location:
+
+```bash
+# Example with custom directory
+python main.py --export both --output-dir ./data/experiment1
+```
+
+Creates:
+```
+data/
+└── experiment1/
+    └── full_semester/
+        ├── csv/
+        └── json/
+```
+
+### File Contents Overview
+
+#### Core Data Files (Generated with all options):
+
+| File | Description | Key Fields |
+|------|-------------|------------|
+| `schools.csv/json` | Israeli school information | id, name, address, phone |
+| `teachers.csv/json` | Teacher profiles | id, name, email, schoolId, subjects |
+| `students.csv/json` | Student information | id, name, email, schoolId, gradeLevel, basePerformance |
+| `courses.csv/json` | Course definitions | id, name, subjectArea, teacherId, schoolId, startDate, endDate |
+| `modules.csv/json` | Course modules | id, name, courseId, isRequired, startDate, endDate |
+| `assignments.csv/json` | Assignment specifications | id, title, type, moduleId, courseId, maxScore, weight, dueDate |
+| `studentAssignments.csv/json` | Student submissions | id, studentId, assignmentId, score, timeSpent, submissionDate, status |
+| `studentCourses.csv/json` | Course enrollments | id, studentId, courseId, finalGrade, completionRate |
+| `metadata.csv/json` | Generation info | generatedAt, isMidSemester, cutoffDate, variationDays |
+
+#### Mid-Semester Specific Files (Only with `--mid-semester`):
+
+| File | Description | Key Fields |
+|------|-------------|------------|
+| `pendingAssignments.csv/json` | Available but unsubmitted assignments | studentId, assignmentId, isAvailable, status |
+| `futureAssignments.csv/json` | Not yet available assignments | studentId, assignmentId, isAvailable, status |
+| `midSemesterReport.csv/json` | Progress summary | totalStudents, avgCompletionRate, assignmentStats |
+
+#### Analysis Files (Mid-semester with specialized export):
+
+| File | Description | Contents |
+|------|-------------|----------|
+| `completion_by_student.csv` | Per-student completion rates | studentId, completed, pending, future, completionRate |
+| `completion_by_course.csv` | Per-course completion statistics | courseId, avgCompletion, studentCount, assignmentCount |
+| `student_progress.csv` | Detailed student progress | studentId, courseId, moduleProgress, assignmentProgress |
+| `overall_statistics.json` | Summary statistics | totalAssignments, completionRates, performanceStats |
+
+### Export Format Details
+
+#### CSV Format:
+- Headers included in first row
+- UTF-8 encoding for Hebrew text
+- Date fields in ISO format (YYYY-MM-DDTHH:MM:SS)
+- Nested objects flattened with dot notation
+
+#### JSON Format:
+- Pretty-printed with 2-space indentation
+- UTF-8 encoding
+- Date fields as ISO strings
+- Nested objects preserved as JSON objects
+- Arrays for collections
+
+### Firebase Collections (When using `--upload`):
+
+If you use the `--upload` flag, the following Firestore collections are created:
+- `schools` - School documents
+- `teachers` - Teacher documents  
+- `students` - Student documents
+- `courses` - Course documents
+- `modules` - Module documents
+- `assignments` - Assignment documents
+- `studentAssignments` - Student submission documents
+- `studentCourses` - Course enrollment documents
+
+### Common Usage Scenarios
+
+#### Scenario 1: Full Academic Year Analysis
+```bash
+python main.py --export both --output-dir ./full_year_data
+```
+**Generates**: Complete semester data with all assignments completed, ideal for end-of-year analysis.
+
+#### Scenario 2: Mid-Semester Progress Tracking
+```bash
+python main.py --mid-semester --export csv --output-dir ./progress_check
+```
+**Generates**: Realistic mid-semester data showing student progress, pending assignments, and future work.
+
+#### Scenario 3: Custom Mid-Semester Date Analysis
+```bash
+python main.py --mid-semester --cutoff-date 2024-12-15 --variation-days 5 --export both
+```
+**Generates**: Mid-semester data as if checking progress on December 15th, with 5-day variation window.
+
+#### Scenario 4: Research Data Collection
+```bash
+python main.py --export json --output-dir ./research_data --upload
+```
+**Generates**: JSON files for analysis and uploads to Firebase for cloud access.
+
+#### Scenario 5: Multiple Time Points
+```bash
+# Early semester
+python main.py --mid-semester --cutoff-date 2024-10-01 --export csv --output-dir ./early_semester
+
+# Mid semester  
+python main.py --mid-semester --cutoff-date 2024-11-15 --export csv --output-dir ./mid_semester
+
+# Late semester
+python main.py --mid-semester --cutoff-date 2024-12-30 --export csv --output-dir ./late_semester
+```
+**Generates**: Multiple snapshots showing progression throughout the semester.
 
 ### CSV Format Examples
 
 #### students.csv
 ```csv
-id,name,email,schoolId,gradeLevel,basePerformance
-STU_123456789,אריאל כהן,ariel@school.edu,SCH_123,10,75.5
+id,name,email,phone,schoolId,gradeLevel,entryYear,basePerformance,profileType,createdAt,updatedAt
+STU_123456789,אריאל כהן,ariel.cohen@school.edu,050-1234567,SCH_123,10,2023,75.5,Above Average,2024-09-24T10:00:00,2024-09-24T10:00:00
+STU_987654321,שרה לוי,sarah.levi@school.edu,052-9876543,SCH_123,10,2023,90.2,High Achiever,2024-09-24T10:00:00,2024-09-24T10:00:00
 ```
 
-#### studentAssignments.csv
+#### studentAssignments.csv (Full Semester)
 ```csv
-id,studentId,assignmentId,courseId,score,timeSpent,submissionDate,status
-SA_123,STU_123,ASG_456,CRS_789,85,120,2024-10-14T14:30:00,completed
+id,studentId,assignmentId,courseId,moduleId,score,maxScore,timeSpent,submissionDate,isLate,status,createdAt,updatedAt
+SA_123,STU_123456789,ASG_456,CRS_789,MOD_101,85,100,120,2024-10-14T14:30:00,false,completed,2024-10-14T14:30:00,2024-10-14T14:30:00
+SA_124,STU_123456789,ASG_457,CRS_789,MOD_101,92,100,95,2024-10-20T16:45:00,false,completed,2024-10-20T16:45:00,2024-10-20T16:45:00
+```
+
+#### studentAssignments.csv (Mid-Semester)
+```csv
+id,studentId,assignmentId,courseId,moduleId,score,maxScore,timeSpent,submissionDate,isLate,status,isAvailable,createdAt,updatedAt
+SA_123,STU_123456789,ASG_456,CRS_789,MOD_101,85,100,120,2024-10-14T14:30:00,false,completed,true,2024-10-14T14:30:00,2024-10-14T14:30:00
+PA_124,STU_123456789,ASG_457,CRS_789,MOD_101,,,,,false,pending,true,2024-09-24T10:00:00,2024-09-24T10:00:00
+FA_125,STU_123456789,ASG_458,CRS_789,MOD_102,,,,,false,future,false,2024-09-24T10:00:00,2024-09-24T10:00:00
+```
+
+#### courses.csv
+```csv
+id,name,description,subjectArea,schoolId,teacherId,startDate,endDate,accessCode,published,createdAt,updatedAt
+CRS_789,מתמטיקה מתקדמת,קורס מתמטיקה לכיתה י,מתמטיקה,SCH_123,TCH_456,2024-09-01T08:00:00,2025-06-30T16:00:00,MATH2024,true,2024-09-01T08:00:00,2024-09-01T08:00:00
+```
+
+#### assignments.csv
+```csv
+id,title,description,type,courseId,moduleId,maxScore,weight,assignDate,dueDate,isActive,createdAt,updatedAt
+ASG_456,בחינה במתמטיקה - פרק 1,בחינה הראשונה בקורס,Exam,CRS_789,MOD_101,100,0.30,2024-10-01T08:00:00,2024-10-15T23:59:00,true,2024-10-01T08:00:00,2024-10-01T08:00:00
+ASG_457,תרגיל בית - משוואות,תרגיל בית על פתרון משוואות,Homework,CRS_789,MOD_101,50,0.20,2024-10-10T08:00:00,2024-10-25T23:59:00,true,2024-10-10T08:00:00,2024-10-10T08:00:00
 ```
 
 ## Statistical Analysis Features

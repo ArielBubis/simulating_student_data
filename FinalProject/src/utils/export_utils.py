@@ -27,7 +27,7 @@ def serialize_for_export(value: Any) -> Any:
         return json.dumps({k: serialize_for_export(v) for k, v in value.items()})
     return value
 
-def export_to_csv(data: List[Dict[str, Any]], filename: str, directory: str = './src/output/csv') -> bool:
+def export_to_csv(data: List[Dict[str, Any]], filename: str, directory: str = './output/csv') -> bool:
     """
     Export a collection of data to a CSV file.
     
@@ -75,7 +75,7 @@ def export_to_csv(data: List[Dict[str, Any]], filename: str, directory: str = '.
         return False
 
 def export_collection_to_csv(collection_name: str, data: List[Dict[str, Any]], 
-                            base_dir: str = './src/output') -> bool:
+                            base_dir: str = './output') -> bool:
     """
     Export a named collection to a CSV file.
     
@@ -91,7 +91,7 @@ def export_collection_to_csv(collection_name: str, data: List[Dict[str, Any]],
     return export_to_csv(data, f"{collection_name}.csv", csv_dir)
 
 def export_to_json(data: Union[List, Dict], filename: str, 
-                  directory: str = './src/output/json', indent: int = 2) -> bool:
+                  directory: str = './output/json', indent: int = 2) -> bool:
     """
     Export data to a JSON file.
     
@@ -121,7 +121,7 @@ def export_to_json(data: Union[List, Dict], filename: str,
         return False
 
 def export_collection_to_json(collection_name: str, data: List[Dict[str, Any]], 
-                             base_dir: str = './src/output') -> bool:
+                             base_dir: str = './output') -> bool:
     """
     Export a named collection to a JSON file.
     
@@ -138,7 +138,7 @@ def export_collection_to_json(collection_name: str, data: List[Dict[str, Any]],
 
 def export_all_collections(data_objects: Dict[str, List[Dict[str, Any]]], 
                          formats: List[str] = ['json', 'csv'],
-                         base_dir: str = './src/output') -> Dict[str, bool]:
+                         base_dir: str = './output') -> Dict[str, bool]:
     """
     Export all collections to specified formats.
     
@@ -204,7 +204,7 @@ def export_all_collections(data_objects: Dict[str, List[Dict[str, Any]]],
     
     return results
 
-def export_mid_semester_summary(self, directory: str = './src/output/summary') -> bool:
+def export_mid_semester_summary(self, directory: str = './output/summary') -> bool:
     """
     Export a mid-semester summary report in human-readable format.
     
