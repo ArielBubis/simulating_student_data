@@ -88,8 +88,6 @@ class Assignment:
         Returns:
             float: Percentage of student submissions (0-100)
         """
-        # This would require knowing the total number of students
-        # For now, just return the number of submissions
         return len(self.student_submissions)
     
     def get_average_score(self) -> float:
@@ -100,8 +98,6 @@ class Assignment:
             float: Average score across all submissions
         """
         if not self.student_submissions:
-            # Replace print with logging or remove entirely
-            # print("No student submissions found.")
             return 0.0
         
         total_score = sum(

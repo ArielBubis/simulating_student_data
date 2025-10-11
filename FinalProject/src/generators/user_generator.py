@@ -15,7 +15,7 @@ from models.school import School
 from generators.id_generator import generate_user_id
 from utils.distribution_utils import generate_correlated_subject_performance
 
-# Hebrew names for realistic Israeli students and teachers (RTL formatted)
+# Hebrew names 
 HEBREW_FIRST_NAMES = {
     'male': [
         'אריאל', 'דוד', 'יוסף', 'מיכאל', 'דניאל', 'אבירם', 'רון', 'עמית', 'תום', 'נועם',
@@ -65,7 +65,7 @@ def create_english_email_from_hebrew_name(first_name: str, last_name: str, schoo
     Returns:
         str: English email address
     """
-    # Hebrew to English transliteration mapping
+    # Hebrew to English transliteration mapping - stupid but works well enough
     transliteration_map = {
         'א': 'a', 'ב': 'b', 'ג': 'g', 'ד': 'd', 'ה': 'h', 'ו': 'v', 'ז': 'z', 'ח': 'ch',
         'ט': 't', 'י': 'y', 'כ': 'k', 'ך': 'k', 'ל': 'l', 'מ': 'm', 'ם': 'm', 'ן': 'n',

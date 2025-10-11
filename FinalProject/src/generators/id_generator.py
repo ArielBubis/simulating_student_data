@@ -24,7 +24,7 @@ def generate_user_id() -> str:
         str: A unique 9-digit ID
     """
     while True:
-        # Generate a 9-digit number, ensuring first digit isn't 0
+        # Generate a 9-digit number
         first_digit = random.randint(1, 9)
         rest_digits = ''.join([str(random.randint(0, 9)) for _ in range(8)])
         user_id = f"{first_digit}{rest_digits}"
